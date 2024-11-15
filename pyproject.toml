@@ -1,0 +1,89 @@
+[tool.poetry]
+name = "base-template"
+version = "0.1.0"
+description = "Base template for "
+authors = ["smaddanki"]
+readme = "README.md"
+keywords = ["packaging", "poetry"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.5.0"
+ruff = "^0.2.1"
+mypy = "^1.8.0"
+black = "^24.1.1"
+bandit = "^1.7.6"
+pyupgrade = "^3.15.0"
+types-requests = "*"
+types-python-dateutil = "*"
+types-PyYAML = "*"
+types-toml = "*"
+types-setuptools = "*"
+types-urllib3 = "*"
+
+[tool.autopep8]
+max_line_length = 88
+aggressive = 3
+experimental = true
+ignore = ["E226", "E24", "W50", "W690"]
+select = ["E", "W", "F", "N", "B", "C"]
+in-place = true
+recursive = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+preview = true
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "YTT", # flake8-2020
+    "S",   # flake8-bandit
+    "PIE", # flake8-pie
+    "RET", # flake8-return
+    "TCH", # type-checking
+    "PL",  # pylint
+    "PT",  # pytest
+    "RUF", # ruff-specific
+]
+ignore = ["E501"] # Line length is handled by black
+
+[tool.ruff.mccabe]
+max-complexity = 10
+
+[tool.ruff.isort]
+combine-as-imports = true
+lines-after-imports = 2
+extra-standard-library = ["typing"]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+ignore_missing_imports = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+strict = true
+mypy_path = "base_template"
+explicit_package_bases = true
+namespace_packages = true
