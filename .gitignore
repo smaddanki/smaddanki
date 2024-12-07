@@ -138,3 +138,10 @@ poetry.lock
 dist
 cache/*
 artifacts/*
+
+# MLFlow
+mlruns/*
+mlflow.db
+
+# ruff
+.ruff_cache
