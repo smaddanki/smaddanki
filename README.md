@@ -13,8 +13,8 @@ I architect and implement data systems and conduct quantitative research at the 
 - Quantitative Finance
 
 ## Practical Applications
-
 The content emphasizes practical applications through:
+
 1. **Industry Case Studies**
    - Real-world problem solving
    - Industry-specific challenges
@@ -26,12 +26,6 @@ The content emphasizes practical applications through:
    - Interactive notebooks
    - Code walkthroughs
    - Best practice demonstrations
-
-3. **System Design**
-   - Architecture patterns
-   - Scaling strategies
-   - Integration approaches
-   - Performance optimization
 
 ## 🤝 Professional Network
 
