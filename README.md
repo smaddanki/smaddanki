@@ -7,29 +7,11 @@ I architect and implement data systems and conduct quantitative research at the 
 
 ## Core Focus Areas
 
-- Data Engineering
-- Machine Learning & AI
-- Data Visualization & Storytelling
+- Applied Machine Learning
+- Time Series, NLP, LLMs, RecSys
 - Quantitative Finance
 
-## Practical Applications
-The content emphasizes practical applications through:
-
-1. **Industry Case Studies**
-   - Real-world problem solving
-   - Industry-specific challenges
-   - Implementation considerations
-   - Performance optimization
-
-2. **Hands-on Tutorials**
-   - Step-by-step guides
-   - Interactive notebooks
-   - Code walkthroughs
-   - Best practice demonstrations
-
-## 🤝 Professional Network
-
-Connect to discuss data engineering, ML systems, and quantitative analysis:
+Connect:
 
 - 🌐 Blog: [smaddanki.com](https://smaddanki.com)
 - 💼 LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
