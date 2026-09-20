@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "hugo",
-  "buildCommand": "pip3 install --quiet --disable-pip-version-check -r requirements.txt && python3 scripts/validate.py && hugo --minify",
+  "buildCommand": "(pip3 install --quiet --disable-pip-version-check --break-system-packages -r requirements.txt || pip3 install --quiet --disable-pip-version-check -r requirements.txt) && python3 scripts/validate.py && hugo --minify",
   "outputDirectory": "public",
   "build": {
     "env": {
