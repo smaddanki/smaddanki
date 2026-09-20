@@ -1,0 +1,11 @@
+{{ with .Params.lab }}
+<section class="block" id="methodology">
+  <h2>Methodology</h2>
+  <dl class="dl">
+    <dt>Run date</dt><dd>{{ with .runDate }}{{ time.Format "2 January 2006" . }}{{ end }}</dd>
+    <dt>Models</dt><dd>{{ delimit .models ", " }}</dd>
+    <dt>Schema version</dt><dd>{{ .schemaVersion }}</dd>
+    <dt>Harness</dt><dd><a href="{{ .harness }}">{{ .harness }}</a></dd>
+  </dl>
+</section>
+{{ end }}

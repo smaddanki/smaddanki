@@ -1,0 +1,15 @@
+{{ define "main" }}
+{{/* Published articles, most recent first. No visible page header — the site
+     name is already in the navbar. The h1 stays for document order and screen
+     readers, visually hidden. The full, filterable index is /writing/. */}}
+{{ $all := (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <h1 class="visually-hidden">{{ site.Title }}</h1>
+    {{ partial "entry-list.html" (first 10 $all) }}
+    {{ if gt (len $all) 10 }}
+    <p class="mt-4"><a href="{{ "/writing/" | relURL }}">Browse all {{ len $all }} articles &rarr;</a></p>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

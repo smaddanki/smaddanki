@@ -1,0 +1,18 @@
+{{/* Overrides @thulite/seo's description partial. Our schema already has a
+     one-sentence field per page — `definition` — so prefer it over `summary`
+     rather than making every page repeat the same sentence in two keys.
+     Order: seo.description, definition, description, summary, site description. */}}
+{{- $p := .Page -}}
+{{- $description := "" -}}
+{{- if $p.Params.seo.description -}}
+  {{- $description = $p.Params.seo.description -}}
+{{- else if $p.Params.definition -}}
+  {{- $description = $p.Params.definition -}}
+{{- else if $p.Description -}}
+  {{- $description = $p.Description -}}
+{{- else if $p.Params.summary -}}
+  {{- $description = $p.Params.summary | plainify -}}
+{{- else -}}
+  {{- $description = site.Params.description -}}
+{{- end -}}
+<meta name="description" content="{{ $description }}">

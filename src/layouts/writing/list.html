@@ -1,0 +1,83 @@
+{{ define "main" }}
+{{/* The full index, filterable by type, category and tag. Every article is
+     rendered server-side; the filters narrow what is shown. The dropdowns are
+     <details>, so they open without JS, and every item is a real link to the
+     page showing the same subset. */}}
+{{ $all := (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+{{ $threshold := int site.Params.tagPageThreshold }}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-10">
+    <div class="page-header">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      {{ with .Params.definition }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+    {{ with .Content }}{{ . }}{{ end }}
+
+    <div class="filters" data-filters>
+      <details class="filter-dropdown" data-dropdown="type">
+        <summary><span class="filter-name">Type</span><span class="filter-value" data-current>All</span></summary>
+        <div class="filter-menu">
+          <a class="filter-item" data-filter="type" data-value="" href="{{ "/writing/" | relURL }}">All</a>
+          {{ range (slice "perspective" "blueprint" "lab") }}
+          {{ $n := len (where $all "Params.type" .) }}
+          {{ if $n }}
+          <a class="filter-item" data-filter="type" data-value="{{ . }}" data-label="{{ . }}"
+             href="{{ printf "/writing/?type=%s" . | relURL }}">{{ . }} <span class="filter-count">{{ $n }}</span></a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </details>
+
+      <details class="filter-dropdown" data-dropdown="category">
+        <summary><span class="filter-name">Category</span><span class="filter-value" data-current>All</span></summary>
+        <div class="filter-menu">
+          <a class="filter-item" data-filter="category" data-value="" href="{{ "/writing/" | relURL }}">All</a>
+          {{ range partial "categories.html" . }}
+          {{ if .Pages }}
+          <a class="filter-item" data-filter="category" data-value="{{ .File.ContentBaseName }}" data-label="{{ .Title }}"
+             href="{{ .RelPermalink }}">{{ .Title }} <span class="filter-count">{{ len .Pages }}</span></a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </details>
+
+      {{ $used := slice }}
+      {{ range $all }}{{ range .Params.tags }}{{ $used = $used | append . }}{{ end }}{{ end }}
+      {{ with (uniq $used) }}
+      <details class="filter-dropdown" data-dropdown="tag">
+        <summary><span class="filter-name">Tag</span><span class="filter-value" data-current>All</span></summary>
+        <div class="filter-menu">
+          <a class="filter-item" data-filter="tag" data-value="" href="{{ "/writing/" | relURL }}">All</a>
+          {{ range sort . }}
+          {{ $tag := . }}
+          {{ $term := site.GetPage (printf "/tags/%s" $tag) }}
+          {{ $n := partial "tag-count.html" $tag }}
+          {{ $label := $tag }}{{ with $term }}{{ $label = .Title }}{{ end }}
+          <a class="filter-item" data-filter="tag" data-value="{{ $tag }}" data-label="{{ $label }}"
+             {{ if and $term (ge $n $threshold) }}href="{{ $term.RelPermalink }}"{{ else }}href="{{ printf "/writing/?tag=%s" $tag | relURL }}"{{ end }}>{{ $label }} <span class="filter-count">{{ $n }}</span></a>
+          {{ end }}
+        </div>
+      </details>
+      {{ end }}
+
+      <p class="filter-status" data-filter-status hidden></p>
+    </div>
+
+    <ul class="list-unstyled entry-list" data-filter-list>
+      {{ range $all }}
+      <li class="py-3 border-bottom"
+          data-type="{{ .Params.type }}"
+          data-category="{{ .Params.categories }}"
+          data-tags="{{ delimit (.Params.tags | default slice) " " }}">
+        <h3 class="h5 mb-1"><a class="text-body" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p class="meta text-body-secondary small mb-1">
+          <span class="badge text-bg-secondary text-uppercase">{{ .Params.type }}</span>
+          <span class="ms-2">{{ .Date.Format "2 Jan 2006" }}</span>
+        </p>
+        {{ with .Params.definition }}<p class="mb-0 text-body-secondary">{{ . }}</p>{{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

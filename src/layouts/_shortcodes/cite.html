@@ -1,0 +1,60 @@
+{{/* Citation block: the prose form, then BibTeX. Both are built from front
+     matter plus the canonical URL, so neither can drift from the article.
+     The copy button is the one permitted piece of JS and ships inline here so
+     it reaches only pages that use this shortcode. */}}
+{{- $p := .Page -}}
+{{- $headline := $p.Params.h1 | default $p.Title -}}
+
+{{/* "Sudhamshu Addanki" -> "Addanki, Sudhamshu", overridable for names that
+     do not split on the last space. */}}
+{{- $cited := site.Params.authorCitation -}}
+{{- if not $cited -}}
+  {{- $parts := split site.Params.author " " -}}
+  {{- $last := index $parts (sub (len $parts) 1) -}}
+  {{- $given := delimit (first (sub (len $parts) 1) $parts) " " -}}
+  {{- $cited = printf "%s, %s" $last $given -}}
+{{- end -}}
+
+{{- $surname := index (split $cited ",") 0 -}}
+{{- $key := $p.Params.citeKey -}}
+{{- if not $key -}}
+  {{- $key = printf "%s%d%s" (lower $surname) $p.Date.Year (index (split $p.File.BaseFileName "-") 0) -}}
+{{- end -}}
+
+{{- $bibtex := printf `@article{%s,
+  title   = {%s},
+  author  = {%s},
+  journal = {%s},
+  year    = {%d},
+  month   = {%s},
+  url     = "%s"
+}` $key $headline $cited site.Title $p.Date.Year ($p.Date.Format "January") $p.Permalink -}}
+
+<section class="citation" id="cite">
+  <h2>Citation</h2>
+  <p>Please cite this work as:</p>
+  <blockquote class="citation-prose">
+    {{ $cited }}. &ldquo;{{ $headline }}&rdquo;. {{ site.Title }} ({{ $p.Date.Format "Jan 2006" }}).
+    <a href="{{ $p.Permalink }}">{{ $p.Permalink }}</a>
+  </blockquote>
+  <p>Or use the BibTeX citation:</p>
+  <div class="citation-bibtex">
+    <button class="citation-copy" type="button" hidden>copy</button>
+    <pre id="cite-bibtex-{{ $key }}"><code>{{ $bibtex }}</code></pre>
+  </div>
+</section>
+<script>
+  (function () {
+    var wrap = document.currentScript.previousElementSibling;
+    var btn = wrap.querySelector('.citation-copy');
+    var pre = wrap.querySelector('.citation-bibtex pre');
+    if (!navigator.clipboard) return;
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(pre.textContent).then(function () {
+        btn.textContent = 'copied';
+        setTimeout(function () { btn.textContent = 'copy'; }, 2000);
+      });
+    });
+  })();
+</script>

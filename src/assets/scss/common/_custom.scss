@@ -1,0 +1,415 @@
+// Smaddanki. Styles for the things Doks does not ship: the definition sentence
+// under every h1, the shortcode blocks, and blueprint's numbered H2s.
+// Everything here uses Bootstrap's CSS variables so it follows the colour mode.
+
+// The one-sentence definition rendered directly under the h1.
+.definition {
+  border-left: 3px solid var(--bs-border-color);
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+// Shared shell for the cite, methodology, reviewed, definition and correction
+// shortcodes.
+.block {
+  margin-block: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+
+  > h2,
+  > h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.block-correction {
+  border-left: 3px solid var(--bs-warning);
+}
+
+// Citation block: prose form, then BibTeX on a light surface rather than the
+// dark slab a code block would normally get.
+.citation {
+  margin-block: 3rem 2rem;
+
+  h2 {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.citation-prose {
+  margin: 1rem 0 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--bs-emphasis-color);
+  overflow-wrap: anywhere;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.citation-bibtex {
+  position: relative;
+
+  pre {
+    margin-bottom: 0;
+    padding: 1rem 1.25rem;
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    overflow-x: auto;
+  }
+
+  code {
+    color: var(--bs-body-color);
+    background: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+}
+
+.citation-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  color: var(--bs-secondary-color);
+  background: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  padding: 0.125rem 0.5rem;
+
+  &:hover {
+    color: var(--bs-body-color);
+  }
+}
+
+// Definition lists inside methodology and reviewed blocks.
+.dl {
+  margin-bottom: 0;
+
+  dt {
+    font-size: 0.875rem;
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+  }
+
+  dd {
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Blueprint numbers its H2s.
+.numbered-h2 {
+  counter-reset: bp;
+
+  h2 {
+    counter-increment: bp;
+
+    &::before {
+      content: counter(bp) ". ";
+      color: var(--bs-secondary-color);
+    }
+  }
+}
+
+.subscribe {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  input[type="email"] {
+    font: inherit;
+    flex: 1 1 14rem;
+    min-width: 0;
+    padding: 0.5rem 0.75rem;
+    color: var(--bs-body-color);
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    color: var(--bs-body-bg);
+    background: var(--bs-emphasis-color);
+    border: 1px solid var(--bs-emphasis-color);
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem 1rem;
+  }
+}
+
+figure figcaption {
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+  margin-top: 0.5rem;
+}
+
+// Tables and code blocks scroll inside their own container.
+.scroll-x {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+// Library directory. The cards themselves use Doks' .card and .card-icon, so
+// only the kind filters and section spacing need styling here.
+.library-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.library-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 2rem;
+
+  &:hover {
+    border-color: var(--bs-emphasis-color);
+  }
+}
+
+.library-count {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+}
+
+.library-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 5rem; // clears the sticky navbar when a chip is followed
+}
+
+// Filters on /writing/. The dropdowns are <details>, so they work with the
+// disclosure triangle suppressed and no JavaScript.
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-dropdown {
+  position: relative;
+
+  > summary {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    // Right padding reserves the chevron's lane; it is positioned absolutely
+    // because as a flex item it was overlapping the label.
+    padding: 0.3rem 1.75rem 0.3rem 0.85rem;
+    font-size: 0.875rem;
+    list-style: none;
+    cursor: pointer;
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 2rem;
+    white-space: nowrap;
+
+    &::-webkit-details-marker { display: none; }
+
+    // Chevron, in the lane the right padding reserves.
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      width: 0.4rem;
+      height: 0.4rem;
+      margin-top: -0.3rem;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      opacity: 0.5;
+    }
+
+    &:hover { border-color: var(--bs-emphasis-color); }
+  }
+
+  &[open] > summary::after {
+    margin-top: -0.1rem;
+    transform: rotate(-135deg);
+  }
+
+  &.is-set > summary {
+    border-color: var(--bs-emphasis-color);
+  }
+}
+
+.filter-name {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bs-secondary-color);
+}
+
+.filter-value {
+  color: var(--bs-body-color);
+}
+
+.filter-menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 100%;
+  max-height: 60vh;
+  margin-top: 0.35rem;
+  padding: 0.25rem;
+  overflow-y: auto;
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+}
+
+.filter-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: calc(var(--bs-border-radius) - 1px);
+
+  &:hover { background: var(--bs-tertiary-bg); }
+
+  &.is-active {
+    color: var(--bs-body-bg);
+    background: var(--bs-emphasis-color);
+  }
+}
+
+.filter-count {
+  font-size: 0.75rem;
+  color: var(--bs-secondary-color);
+
+  .is-active & { color: inherit; opacity: 0.7; }
+}
+
+.filter-status {
+  flex-basis: 100%;
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+}
+
+.filter-clear {
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--bs-body-color);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+}
+
+// On a narrow screen the menu should not run off the edge.
+@media (max-width: 480px) {
+  .filter-dropdown { position: static; }
+  .filter-menu { left: 0; right: 0; }
+}
+
+// Doks drops the navbar's bottom border on the home page, because its home is a
+// hero. Ours is an article list, so put the separator back — in both modes,
+// since _dark.scss suppresses it again there.
+.home .navbar {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+@include color-mode(dark) {
+  body.home .navbar {
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+}
+
+// Doks styles every <details> as a bordered callout, and every <summary> wider
+// than its own box (width: calc(100% + 2rem) with negative margins). Both leak
+// into the filter dropdowns, drawing a second frame around each pill. Reset
+// them here rather than fighting the specificity at each rule.
+.filter-dropdown {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+
+  > summary {
+    width: auto;
+    margin: 0;
+
+    &:hover {
+      background: var(--bs-tertiary-bg);
+    }
+  }
+}
+
+// In dark mode Doks re-declares `details summary::after` with its own SVG
+// chevron as `content`. That selector outranks `.filter-dropdown > summary`,
+// so both arrows drew at once. Scoping through .filters raises specificity
+// above it in both modes.
+.filters .filter-dropdown > summary::after {
+  content: "";
+}
+
+// Tags at the foot of an article. A tag below the rendering threshold is a
+// span rather than a link, so both need to look like a tag.
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.tag-row-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bs-secondary-color);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 2rem;
+}
+
+a.tag:hover {
+  border-color: var(--bs-emphasis-color);
+}
+
+// Space the prev/next cards away from what precedes them.
+.page-nav {
+  margin-top: 2.5rem;
+}

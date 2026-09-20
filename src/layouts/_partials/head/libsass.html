@@ -1,0 +1,14 @@
+{{/* Overrides @thulite/core's head/libsass.html for one reason only: it
+     hardcodes the PostCSS config path as "config/postcss.config.js", and our
+     config lives at src/config/. Everything else here is verbatim from the
+     module — re-check it against node_modules/@thulite/core/layouts/_partials/
+     head/libsass.html after a Doks upgrade. */}}
+{{ $css := "" }}
+{{ if eq (hugo.Environment) "development" -}}
+  {{ $options := (dict "targetPath" "main.css" "transpiler" "libsass" "enableSourceMap" true "includePaths" (slice "node_modules")) -}}
+  {{ $css = resources.Get . | toCSS $options | resources.Fingerprint "sha512" -}}
+{{ else -}}
+  {{ $options := (dict "targetPath" "main.css" "transpiler" "libsass" "outputStyle" "compressed" "includePaths" (slice "node_modules")) -}}
+  {{ $css = resources.Get . | toCSS $options | postCSS (dict "config" "src/config/postcss.config.js") |  resources.Fingerprint "sha512" | resources.PostProcess -}}
+{{ end -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">

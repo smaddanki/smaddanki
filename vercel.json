@@ -1,0 +1,100 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "hugo",
+  "buildCommand": "sh scripts/build.sh",
+  "outputDirectory": "public",
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.166.0"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/13-design-principles-for-data-pipelines",
+      "destination": "/writing/13-design-principles-for-data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/core-data-pipeline-building-blocks-every-engineer-should-know",
+      "destination": "/writing/core-data-pipeline-building-blocks-every-engineer-should-know/",
+      "permanent": true
+    },
+    {
+      "source": "/data-pipeline-components-architectural-blueprint",
+      "destination": "/writing/data-pipeline-components-architectural-blueprint/",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/writing/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering",
+      "destination": "/writing/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering/data-engineering",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering/software-architecture-design",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/content-type/architecture-and-design",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/cookies-policy",
+      "destination": "/privacy/",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/post-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/page-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "smaddanki.vercel.app"
+        }
+      ],
+      "destination": "https://smaddanki.com/:path*",
+      "permanent": true
+    }
+  ],
+  "installCommand": "npm install"
+}

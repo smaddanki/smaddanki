@@ -1,0 +1,25 @@
+# The kinds an artefact can be, in the order they appear on /library/.
+# `library.kind` in front matter must be one of these keys; scripts/validate.py
+# enforces that. `icon` is a Tabler outline icon name, `color` one of Doks'
+# card-icon variants (yellow, purple, green, red, blue).
+kinds:
+  - key: mcp
+    name: MCP servers
+    description: Integration surfaces an agent connects to.
+    icon: plug
+    color: blue
+  - key: tool
+    name: Tools
+    description: Things you run, not things an agent calls.
+    icon: tool
+    color: green
+  - key: skill
+    name: Skills
+    description: Procedural instructions an agent loads on demand.
+    icon: bolt
+    color: yellow
+  - key: persona
+    name: Personas
+    description: Role framing that changes what an agent is accountable for.
+    icon: user-circle
+    color: purple

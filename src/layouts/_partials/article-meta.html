@@ -1,0 +1,8 @@
+<p class="meta text-body-secondary small">
+  <span class="badge text-bg-secondary text-uppercase">{{ .Params.type }}</span>
+  <span class="ms-2">{{ .Date.Format "2 January 2006" }}</span>
+  {{ with site.GetPage (printf "/categories/%s" .Params.categories) }}
+  <span class="ms-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
+  {{ end }}
+  {{ with .Params.lastReviewed }}<span class="ms-2">Last reviewed {{ time.Format "2 January 2006" . }}</span>{{ end }}
+</p>

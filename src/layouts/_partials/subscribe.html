@@ -1,0 +1,12 @@
+{{/* Posts straight to the ESP's public endpoint. No secrets in the repo. */}}
+<div class="subscribe">
+  {{ with site.Params.subscribeEndpoint }}
+  <form action="{{ . }}" method="post" target="_blank">
+    <label class="visually-hidden" for="subscribe-email">Email address</label>
+    <input id="subscribe-email" type="email" name="email" placeholder="you@example.com" required />
+    <button type="submit">Subscribe</button>
+  </form>
+  {{ else }}
+  <p class="text-body-secondary">Set <code>params.subscribeEndpoint</code> in <code>src/config/_default/params.toml</code> to enable the form.</p>
+  {{ end }}
+</div>

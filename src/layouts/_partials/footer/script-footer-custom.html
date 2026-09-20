@@ -1,0 +1,27 @@
+{{/* Analytics. Production deploys only — a preview should never pollute the
+     numbers, and local development should send nothing at all. */}}
+{{ $isProd := and hugo.IsProduction (eq (getenv "VERCEL_ENV" | default "production") "production") }}
+
+{{ if $isProd }}
+  {{/* Vercel Web Analytics and Speed Insights. Cookieless and no personal data,
+       so they need no consent banner. Served by Vercel itself at these paths,
+       but only once each is enabled in the project dashboard. */}}
+  {{ if site.Params.vercelAnalytics }}
+  <script defer src="/_vercel/insights/script.js"></script>
+  {{ end }}
+  {{ if site.Params.vercelSpeedInsights }}
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  {{ end }}
+
+  {{/* Google Analytics. This SETS COOKIES: do not enable it without a consent
+       mechanism, and update /privacy/ at the same time. */}}
+  {{ with site.Params.googleAnalyticsID }}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ . }}', { anonymize_ip: true });
+  </script>
+  {{ end }}
+{{ end }}

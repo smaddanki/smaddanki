@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{/* Wording comes from data/definitions.yaml, the single source. */}}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <div class="page-header">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      {{ with .Params.definition }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+    {{ with .Content }}{{ . }}{{ end }}
+    {{ range $key, $d := hugo.Data.definitions }}
+    <section class="card my-4" id="{{ $key }}">
+      <div class="card-body">
+        <h2 class="h4">{{ $d.term }}</h2>
+        <p class="mb-1">{{ $d.definition }}</p>
+        <p class="small mb-0"><a href="#{{ $key }}">Permalink</a></p>
+      </div>
+    </section>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

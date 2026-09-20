@@ -1,0 +1,39 @@
+{{ define "main" }}
+{{/* Definition at the top, then articles grouped under the sub-headings named
+     in the term's _index.md. Deliberately not reverse-chronological, never paginated. */}}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <div class="page-header">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      {{ with .Params.question }}<p class="text-body-secondary fst-italic">{{ . }}</p>{{ end }}
+      <p class="lead definition">{{ .Params.definition }}</p>
+    </div>
+    {{ with .Content }}{{ . }}{{ end }}
+
+    {{ $pages := .Pages }}
+    {{ $grouped := slice }}
+    {{ range .Params.groups }}
+    {{ $g := . }}
+    {{ $in := where $pages "Params.group" $g.slug }}
+    {{ $grouped = $grouped | append $in }}
+    {{ if $in }}
+    <section class="mt-5">
+      <h2 class="h4">{{ $g.title }}</h2>
+      {{ with $g.description }}<p class="text-body-secondary">{{ . }}</p>{{ end }}
+      {{ partial "entry-list.html" $in }}
+    </section>
+    {{ end }}
+    {{ end }}
+
+    {{ $ungrouped := complement $grouped $pages }}
+    {{ if $ungrouped }}
+    <section class="mt-5">
+      {{ if .Params.groups }}<h2 class="h4">Everything else</h2>{{ end }}
+      {{ partial "entry-list.html" $ungrouped }}
+    </section>
+    {{ end }}
+
+    {{ if not $pages }}<p class="text-body-secondary">Nothing published in this category yet.</p>{{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,5 @@
+{{/* Inline correction notice. Also collected onto /corrections/ from front matter. */}}
+<aside class="block block-correction" id="correction-{{ .Get "date" | default "0" | urlize }}">
+  <h3>Correction{{ with .Get "date" }} — {{ time.Format "2 January 2006" . }}{{ end }}</h3>
+  <div class="prose">{{ .Inner | .Page.RenderString }}</div>
+</aside>

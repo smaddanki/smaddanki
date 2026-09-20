@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{/* Hugo renders this to /404.html, which Vercel serves for unmatched paths. */}}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <div class="page-header">
+      <h1>Page not found</h1>
+      <p class="lead">That page does not exist, or it has moved.</p>
+    </div>
+    <p>Try <a href="{{ "/writing/" | relURL }}">the writing</a>, or go back to the
+    <a href="{{ "/" | relURL }}">home page</a>.</p>
+    <p>If you followed a link from elsewhere and expected something here, the
+    piece may have been retired — <a href="{{ "/corrections/" | relURL }}">corrections</a>
+    lists anything withdrawn.</p>
+  </div>
+</div>
+{{ end }}

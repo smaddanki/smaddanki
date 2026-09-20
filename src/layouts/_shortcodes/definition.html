@@ -1,0 +1,10 @@
+{{/* Owned-term definition. Wording lives only in data/definitions.yaml so it is
+     identical on /definitions/ and at first use inside an article. */}}
+{{ $key := .Get 0 | default (.Get "term") }}
+{{ $d := index hugo.Data.definitions $key }}
+{{ if not $d }}{{ errorf "definition shortcode: unknown term %q in %s" $key .Page.File.Path }}{{ end }}
+<section class="block" id="definition-{{ $key }}">
+  <h3>{{ $d.term }}</h3>
+  <p>{{ $d.definition }}</p>
+  <p class="meta"><a href="{{ "/definitions/" | relURL }}#{{ $key }}">Definition</a></p>
+</section>

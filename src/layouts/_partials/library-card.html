@@ -1,0 +1,24 @@
+{{/* Built on Doks' own card and card-icon classes, so it follows the colour
+     mode and needs no styling of its own beyond the grid. */}}
+{{ $lib := .Params.library }}
+{{ $kind := dict }}
+{{ range hugo.Data.library.kinds }}{{ if eq .key $lib.kind }}{{ $kind = . }}{{ end }}{{ end }}
+<div class="card card-box h-100">
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-2">
+      {{ with $kind.icon }}
+      {{ partial "inline-svg" (dict
+        "src" (printf "svgs/tabler-icons/outline/%s.svg" .)
+        "stroke-width" "1.5" "height" "1.5rem" "width" "1.5rem"
+        "class" (printf "svg-inline-custom mt-0 me-3 card-icon icon-%s" ($kind.color | default "blue"))) }}
+      {{ end }}
+      <span class="card-title h5 mt-0 mb-0">
+        <a class="stretched-link text-reset text-decoration-none" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </span>
+    </div>
+    <p class="card-text">{{ .Params.definition }}</p>
+    <p class="card-text small text-body-secondary mb-0">
+      v{{ $lib.version }} · checked against {{ $lib.checkedAgainst }}
+    </p>
+  </div>
+</div>

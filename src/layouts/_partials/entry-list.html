@@ -1,0 +1,13 @@
+{{/* `.` is a slice of pages. */}}
+<ul class="list-unstyled entry-list">
+  {{ range . }}
+  <li class="py-3 border-bottom">
+    <h3 class="h5 mb-1"><a class="text-body" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="meta text-body-secondary small mb-1">
+      <span class="badge text-bg-secondary text-uppercase">{{ .Params.type }}</span>
+      <span class="ms-2">{{ .Date.Format "2 Jan 2006" }}</span>
+    </p>
+    {{ with .Params.definition }}<p class="mb-0 text-body-secondary">{{ . }}</p>{{ end }}
+  </li>
+  {{ end }}
+</ul>

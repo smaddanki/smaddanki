@@ -1,0 +1,49 @@
+# Controlled vocabulary. A tag not listed here fails the build.
+# When a tag reaches ~15 articles with a distinct reader, consider promoting it
+# to a category of its own. Run `python3 scripts/validate.py --report` for counts.
+
+semantic-layer:
+  name: Semantic layer
+  description: The shared definition surface between source systems and the things people and agents ask for.
+metric-definitions:
+  name: Metric definitions
+  description: How a number is specified, versioned and agreed before anyone queries it.
+ml-models:
+  name: ML models
+  description: Trained models as consumers and producers of the data layer.
+feature-store:
+  name: Feature store
+  description: Serving and reproducing model inputs across training and inference.
+mcp:
+  name: MCP
+  description: The Model Context Protocol as an integration surface for agents.
+tool-design:
+  name: Tool design
+  description: How a tool's signature, errors and affordances shape agent behaviour.
+skills:
+  name: Skills
+  description: Packaged procedural instructions an agent loads on demand.
+personas:
+  name: Personas
+  description: Role framing and its effect on agent output and accountability.
+evaluation:
+  name: Evaluation
+  description: Measuring whether an agent did the thing, repeatably.
+drift:
+  name: Drift
+  description: Divergence between what a system was built against and what it now meets.
+lineage:
+  name: Lineage
+  description: Tracing a value back through the transformations that produced it.
+delegated-identity:
+  name: Delegated identity
+  description: Acting on behalf of a principal, and proving which principal.
+audit-evidence:
+  name: Audit evidence
+  description: The artefacts a control owner can hand to an auditor.
+cost-attribution:
+  name: Cost attribution
+  description: Assigning agent spend to the work and the owner that caused it.
+financial-services:
+  name: Financial services
+  description: Sector constraints that change the shape of an answer.

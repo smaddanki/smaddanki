@@ -1,0 +1,24 @@
+[[main]]
+  name = "Writing"
+  url = "/writing/"
+  weight = 10
+
+[[footer]]
+  name = "Categories"
+  url = "/categories/"
+  weight = 10
+
+[[footer]]
+  name = "Corrections"
+  url = "/corrections/"
+  weight = 40
+
+[[footer]]
+  name = "RSS"
+  url = "/feed.xml"
+  weight = 50
+
+[[footer]]
+  name = "Privacy"
+  url = "/privacy/"
+  weight = 60
