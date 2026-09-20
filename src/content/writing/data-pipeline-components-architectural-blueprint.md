@@ -5,7 +5,7 @@ definition: Every data pipeline is the same set of components; what differs is w
 date: '2024-12-30'
 lastReviewed: '2025-01-10'
 type: blueprint
-category: data-pipelines
+categories: data-pipelines
 tags: []
 summary: The core components of a data pipeline, and a comparison of open-source, cloud-native and commercial tools for each one.
 draft: false

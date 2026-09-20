@@ -27,7 +27,7 @@ TAGS_DIR = CONTENT / "tags"
 THRESHOLD = 3
 TYPES = {"perspective", "blueprint", "lab"}
 CATEGORIES_DIR = SRC / "content" / "categories"
-REQUIRED = ("h1", "definition", "type", "category", "title", "date", "summary")
+REQUIRED = ("h1", "definition", "type", "categories", "title", "date", "summary")
 LIBRARY_FILE = SRC / "data" / "library.yaml"
 
 FM = re.compile(r"\A---\n(.*?)\n---\s*\n", re.S)
@@ -64,12 +64,12 @@ def check_article(path, fm, vocab, errors):
         errors.append(f"{where}: type `{kind}` is not one of {sorted(TYPES)}")
 
     cats = categories()
-    category = fm.get("category")
+    category = fm.get("categories")
     if isinstance(category, list):
-        errors.append(f"{where}: `category` takes exactly one slug, not a list")
+        errors.append(f"{where}: `categories` takes exactly one slug, not a list")
     elif category and category not in cats:
         errors.append(
-            f"{where}: category `{category}` has no page under "
+            f"{where}: categories `{category}` has no page under "
             f"src/content/categories/ — known: {sorted(cats)}"
         )
 
@@ -131,7 +131,9 @@ def write_tag_pages(vocab, counts):
             "articleCount": count,
         }
         if not rendered:
-            body["build"] = {"render": "never", "list": "never"}
+            # `render: never` suppresses the page; `list: never` would also drop
+            # the term from site.Taxonomies, zeroing every count.
+            body["build"] = {"render": "never"}
         out = TAGS_DIR / tag / "_index.md"
         out.parent.mkdir(parents=True, exist_ok=True)
         text = "---\n" + yaml.safe_dump(body, sort_keys=False) + "---\n"

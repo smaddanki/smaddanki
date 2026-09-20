@@ -5,7 +5,7 @@ definition: A pipeline is reliable because of thirteen properties it holds, not 
 date: '2024-12-29'
 lastReviewed: '2025-01-10'
 type: blueprint
-category: data-pipelines
+categories: data-pipelines
 tags:
 - lineage
 summary: Thirteen foundational design principles for building reliable, scalable data pipelines, with the guidelines that follow from each.

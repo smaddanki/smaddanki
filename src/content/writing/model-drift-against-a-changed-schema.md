@@ -5,7 +5,7 @@ definition: A column rename that broke nothing visibly degraded answer accuracy 
 date: 2026-09-15
 lastReviewed: 2026-09-18
 type: lab
-category: silent-failure-problem
+categories: silent-failure-problem
 group: detection
 tags:
   - drift

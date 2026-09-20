@@ -5,7 +5,7 @@ definition: Seven decisions — processing, ingestion, loading, change managemen
 date: '2025-01-10'
 lastReviewed: '2025-01-10'
 type: perspective
-category: data-pipelines
+categories: data-pipelines
 tags: []
 summary: From MLOps to large language models, modern data systems need robust pipelines. The seven building blocks every engineer should know.
 draft: false

@@ -5,5 +5,4 @@ description: How a number is specified, versioned and agreed before anyone queri
 articleCount: 1
 build:
   render: never
-  list: never
 ---

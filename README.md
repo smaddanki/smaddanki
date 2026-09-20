@@ -50,8 +50,8 @@ The filename becomes the slug and **must not change after publication** — a
 rename needs a 301 in `vercel.json`.
 
 Required front matter: `title`, `h1`, `definition`, `date`, `lastReviewed`,
-`type`, `category`, `summary`. `type` is one of `perspective`, `blueprint`, `lab`,
-and selects the layout. `category` is exactly one, and must have a page under `src/content/categories/`. Lab pieces
+`type`, `categories`, `summary`. `type` is one of `perspective`, `blueprint`, `lab`,
+and selects the layout. `categories` takes exactly one slug (Hugo keys taxonomy front matter by the plural name), and it must have a page under `src/content/categories/`. Lab pieces
 also need a `lab:` block; library artefacts a `library:` block.
 
 ## Validation

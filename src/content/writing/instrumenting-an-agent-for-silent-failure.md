@@ -5,7 +5,7 @@ definition: Silent failure is detected by asserting on the shape of an answer, n
 date: 2026-09-08
 lastReviewed: 2026-09-18
 type: blueprint
-category: silent-failure-problem
+categories: silent-failure-problem
 group: detection
 tags:
   - evaluation

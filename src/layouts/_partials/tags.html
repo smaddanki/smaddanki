@@ -5,8 +5,7 @@
   {{ range . }}
   {{ $tag := . }}
   {{ $term := site.GetPage (printf "/tags/%s" $tag) }}
-  {{ $count := 0 }}
-  {{ with index site.Taxonomies.tags $tag }}{{ $count = len .Pages }}{{ end }}
+  {{ $count := partial "tag-count.html" $tag }}
   {{ if and $term (ge $count (int site.Params.tagPageThreshold)) }}
   <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a>
   {{ else }}

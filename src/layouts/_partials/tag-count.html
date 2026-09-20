@@ -1,0 +1,5 @@
+{{/* Published articles carrying this tag. Library artefacts are tagged too, but
+     the rendering threshold counts articles only — same as scripts/validate.py,
+     so the site and the build report never disagree. Call with the tag slug. */}}
+{{ $tag := . }}
+{{ return len (where (where site.RegularPages "Section" "writing") "Params.tags" "intersect" (slice $tag)) }}

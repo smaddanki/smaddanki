@@ -7,7 +7,7 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 - Hugo, built on **Doks** (`@thulite/doks-core`), installed from npm and mounted through Hugo modules. Doks is a real upstream dependency: it is pinned in `package.json` and updated deliberately, not vendored.
 - Our own code lives under `src/` — `src/layouts/`, `src/assets/`, `src/config/`, `src/content/`, `src/data/`, `src/static/` — wired up through the mounts in `src/config/_default/module.toml`. Hugo needs `--configDir src/config`; use the npm scripts. Never edit anything under `node_modules/`; override it at the same path under `src/layouts/`.
 - Every page statically generated. No client-side fetching of *content*. Doks' FlexSearch index is the one exception, and it is generated at build time.
-- Keep JavaScript to what Doks ships plus the citation copy button. Do not add more.
+- Keep JavaScript to what Doks ships, the citation copy button, and the filters on `/writing/`. Every one of those degrades to working HTML. Do not add more.
 - Content is markdown in `src/content/`. Front matter is the only metadata source.
 - Slugs never change after publication. Any change requires a redirect entry.
 - Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on category pages.
@@ -42,7 +42,7 @@ definition:     # ONE sentence, no preamble. Rendered directly under the h1.
 date:
 lastReviewed:   # separate from date
 type:           # perspective | blueprint | lab
-category:       # exactly one, must have a page under src/content/categories/
+categories:     # exactly one slug, must have a page under src/content/categories/
 tags: []        # zero or more, from the controlled list below
 summary:        # for cards and meta description
 draft:
@@ -68,7 +68,7 @@ library:
   repo:
 ```
 
-Fail the build if `h1`, `definition`, `type` or `category` is missing on an article. A missing definition sentence is the single most costly omission on this site.
+Fail the build if `h1`, `definition`, `type` or `categories` is missing on an article. A missing definition sentence is the single most costly omission on this site.
 
 ## Tags
 
@@ -97,10 +97,10 @@ Rendering rules:
 
 - `single` variants per `type`, selected by Hugo's type lookup (`src/layouts/perspective/`, `src/layouts/blueprint/`, `src/layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
 - Category term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
-- `/writing/` index: the categories, each with its definition. Not a feed.
+- `/writing/` index: every published article, most recent first, with filters for type, category and tag across the top. Each filter chip is a real link to the page showing the same subset, so the page works without JavaScript; the script narrows the list in place and keeps `?type=`, `?category=` and `?tag=` in the URL so a filtered view can be shared.
 - `/labs/`: a simple index.
 - `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
-- Home: an archive of every article, reverse-chronological, plus subscribe. The positioning-statement home page arrives with the visual design.
+- Home: the ten most recent articles, most recent first, then a link through to `/writing/` and subscribe. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
 

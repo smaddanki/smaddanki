@@ -5,5 +5,4 @@ description: The shared definition surface between source systems and the things
 articleCount: 1
 build:
   render: never
-  list: never
 ---
