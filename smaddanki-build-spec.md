@@ -109,7 +109,7 @@ Rendering rules:
 Build these before writing any content, even as unstyled placeholders:
 
 - `auditor` — the recurring Blueprint end block. Renders with a stable `id` so it can be deep-linked and aggregated.
-- `cite` — pre-formatted citation from front matter plus canonical URL, with a copy button (the one permitted piece of JS).
+- `cite` — citation block: the prose form, then BibTeX with a copy button (the one permitted piece of JS). Both built from front matter plus the canonical URL. The BibTeX key defaults to surname + year + first word of the slug; override with `citeKey` in front matter.
 - `methodology` — renders the `lab` front matter block.
 - `reviewed` — renders `lastReviewed` with a changelog disclosure.
 - `definition` — the owned-term definition, used on `/definitions/` and inline on first use in an article. Wording must come from one source file so it is identical everywhere.
