@@ -4,13 +4,14 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 
 ## Non-negotiables
 
-- Hugo, `hugo new site`. No Hugo Modules, no git submodules, no installed theme.
-- Start from **hugo-paper** as a source of typography and base CSS only: copy its `layouts/` and `assets/` into this repo, delete what is unused, and treat the result as our own code. There is no parent theme and no upstream to sync. Do not use `theme = "paper"` in config.
-- Every page statically generated. No client-side fetching of content.
-- No JavaScript except where interaction genuinely requires it. Target zero JS on article pages.
+- Hugo, built on **Doks** (`@thulite/doks-core`), installed from npm and mounted through Hugo modules. Doks is a real upstream dependency: it is pinned in `package.json` and updated deliberately, not vendored.
+- Our own code lives in `layouts/`, `assets/` and `config/`, overriding Doks where the two disagree. Never edit anything under `node_modules/`.
+- Every page statically generated. No client-side fetching of *content*. Doks' FlexSearch index is the one exception, and it is generated at build time.
+- Keep JavaScript to what Doks ships plus the citation copy button. Do not add more.
 - Content is markdown in `content/`. Front matter is the only metadata source.
 - Slugs never change after publication. Any change requires a redirect entry.
-- Do not add: site search, comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, an archive page, pagination on pillar pages.
+- Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on pillar pages.
+- Site search comes with Doks and is kept. The home page is an archive for now; there is no About page.
 
 ## URL structure
 
@@ -24,7 +25,6 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 /definitions/                   three owned terms, each with a stable anchor
 /what-you-show-the-auditor/     aggregate of every auditor block
 /corrections/                   corrections log
-/about/
 /agent-data-layer/              pillar
 /silent-failure-problem/        pillar
 /agent-risk-and-controls/       pillar
@@ -98,11 +98,11 @@ Rendering rules:
 
 ## Layouts
 
-- `single` variants per `type` via `layouts/writing/`: perspective (single column, no TOC), blueprint (sticky TOC desktop, collapsible mobile, numbered H2s), lab (methodology block above the fold, results before method).
+- `single` variants per `type`, selected by Hugo's type lookup (`layouts/perspective/`, `layouts/blueprint/`, `layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
 - Pillar term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
 - `/writing/` index: the five pillars, each with its question and definition. Not a feed.
 - `/labs/` and `/library/`: simple indexes.
-- Home: positioning statement, five pillars with questions, three recent pieces, subscribe.
+- Home: an archive of every article, reverse-chronological, plus subscribe. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
 
@@ -122,7 +122,7 @@ Build these before writing any content, even as unstyled placeholders:
 ## SEO and GEO
 
 - Canonical URL on every page. `metaDataBase`-equivalent via `baseURL`.
-- JSON-LD in `layouts/partials/`: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
+- JSON-LD via `@thulite/seo`, extended in `layouts/_partials/head/custom-head.html` where it falls short: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
 - `robots.txt` explicitly allowing GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bingbot.
 - `sitemap.xml`, and RSS as **full text**, not summaries, at `/feed.xml`.
 - `llms.txt` listing pillar and definition pages.
@@ -132,16 +132,16 @@ Build these before writing any content, even as unstyled placeholders:
 
 ## Performance and accessibility
 
-- Self-hosted fonts, subset, `font-display: swap`. No external font requests.
+- Self-hosted fonts, subset, `font-display: swap`. No external font requests. **Outstanding** — Doks' defaults have not been checked for this.
 - Green Core Web Vitals on mobile.
 - Tables and code blocks scroll inside their own container; the page body never scrolls sideways.
-- Light and dark mode via `prefers-color-scheme`, with an explicit background on body.
+- Light, dark and auto via Doks' colour-mode toggle (`params.doks.colorMode`).
 - Headings in document order, real contrast ratios, keyboard navigable.
 
 ## Vercel
 
-- Pin `HUGO_VERSION` as an environment variable. Do not rely on Vercel's default.
-- Build command `hugo --minify`, output `public`.
+- Pin `HUGO_VERSION` as an environment variable. Do not rely on Vercel's default. Node is pinned to 24 in `.nvmrc` and `package.json` engines; Doks requires it.
+- Install `npm install`; build `python3 scripts/validate.py && npm run build`; output `public`.
 - Commit a `vercel.json` holding redirects. Every retired slug gets a 301.
 
 ## Navigation
@@ -152,7 +152,7 @@ Footer: all five pillars by name, Definitions, the auditor index, Corrections, R
 
 ## Build order
 
-1. Site skeleton and config. Vendor hugo-paper's layouts and assets, strip what is unused.
+1. Site skeleton and config. Install Doks, merge our config into `config/_default/`.
 2. Content types, `data/tags.yaml`, front matter and tag validation.
 3. All eight shortcodes as working placeholders.
 4. Blueprint single layout. Everything else inherits from it.
@@ -162,7 +162,7 @@ Footer: all five pillars by name, Definitions, the auditor index, Corrections, R
 8. SEO partials, robots, sitemap, RSS, llms.txt.
 9. `/labs/`, `/library/`, `/corrections/`, `/what-you-show-the-auditor/`, tag pages.
 
-Styling stays close to Paper's defaults at this stage. Visual design arrives separately; build the structure so a stylesheet can be replaced without touching layouts.
+Styling stays close to Doks' defaults at this stage. Visual design arrives separately; customisation goes in `assets/scss/common/_variables-custom.scss` and `_custom.scss` so Doks can be upgraded without conflict.
 
 ## Acceptance
 
@@ -173,6 +173,5 @@ Styling stays close to Paper's defaults at this stage. Visual design arrives sep
 - RSS validates and carries full text.
 - Structured data passes a rich-results test.
 - Canonical tags correct on three sampled pages; tag pages carry `noindex`.
-- No page ships JavaScript other than the copy button.
 - Lighthouse mobile: performance and accessibility both green.
-- No reference to a parent theme anywhere in config.
+- `npm update` to a new Doks minor version does not break the build.

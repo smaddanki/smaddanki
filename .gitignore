@@ -154,3 +154,5 @@ next-env.d.ts
 public/
 resources/_gen/
 .hugo_build.lock
+node_modules/
+hugo_stats.json

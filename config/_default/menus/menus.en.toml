@@ -1,0 +1,39 @@
+[[main]]
+  name = "Writing"
+  url = "/writing/"
+  weight = 10
+
+[[main]]
+  name = "Labs"
+  url = "/labs/"
+  weight = 20
+
+[[main]]
+  name = "Library"
+  url = "/library/"
+  weight = 30
+
+[[footer]]
+  name = "Definitions"
+  url = "/definitions/"
+  weight = 10
+
+[[footer]]
+  name = "What you show the auditor"
+  url = "/what-you-show-the-auditor/"
+  weight = 20
+
+[[footer]]
+  name = "Corrections"
+  url = "/corrections/"
+  weight = 30
+
+[[footer]]
+  name = "RSS"
+  url = "/feed.xml"
+  weight = 40
+
+[[footer]]
+  name = "Privacy"
+  url = "/privacy/"
+  weight = 50

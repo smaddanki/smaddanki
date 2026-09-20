@@ -1,19 +1,19 @@
 {{ define "main" }}
-<article class="wrap">
-  <header class="article-head">
-    <h1>{{ .Params.h1 | default .Title }}</h1>
-    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
-  </header>
-  {{ with .Params.library }}
-  <section class="block">
-    <dl class="dl">
-      <dt>Kind</dt><dd>{{ .kind }}</dd>
-      <dt>Version</dt><dd>{{ .version }}</dd>
-      <dt>Checked against</dt><dd>{{ .checkedAgainst }}</dd>
-      <dt>Repository</dt><dd><a href="{{ .repo }}">{{ .repo }}</a></dd>
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <div class="page-header">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      {{ with .Params.definition }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+    {{ with .Params.library }}
+    <dl class="row">
+      <dt class="col-sm-3">Kind</dt><dd class="col-sm-9">{{ .kind }}</dd>
+      <dt class="col-sm-3">Version</dt><dd class="col-sm-9">{{ .version }}</dd>
+      <dt class="col-sm-3">Checked against</dt><dd class="col-sm-9">{{ .checkedAgainst }}</dd>
+      <dt class="col-sm-3">Repository</dt><dd class="col-sm-9"><a href="{{ .repo }}">{{ .repo }}</a></dd>
     </dl>
-  </section>
-  {{ end }}
-  <div class="prose">{{ .Content }}</div>
-</article>
+    {{ end }}
+    {{ .Content }}
+  </div>
+</div>
 {{ end }}

@@ -1,9 +1,0 @@
-{{ define "main" }}
-<article class="wrap">
-  <header class="article-head">
-    <h1>{{ .Params.h1 | default .Title }}</h1>
-    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
-  </header>
-  <div class="prose">{{ .Content }}</div>
-</article>
-{{ end }}

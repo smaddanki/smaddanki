@@ -5,8 +5,6 @@
     <link>{{ site.BaseURL }}</link>
     <description>{{ site.Params.description }}</description>
     <language>{{ site.Language.Locale }}</language>
-    <managingEditor>{{ site.Params.author }}</managingEditor>
-    <webMaster>{{ site.Params.author }}</webMaster>
     <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
     <atom:link href="{{ .Permalink }}" rel="self" type="application/rss+xml" />
     {{ range $pages.ByDate.Reverse }}

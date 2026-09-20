@@ -1,0 +1,5 @@
+{{/* Preview deploys and tag pages must never be indexed. */}}
+{{ $preview := ne (getenv "VERCEL_ENV" | default "production") "production" }}
+{{ if or $preview .Params.noindex (eq .Type "tags") }}
+<meta name="robots" content="noindex, nofollow" />
+{{ end }}

@@ -1,20 +1,26 @@
 {{ define "main" }}
-<div class="wrap">
-  <header class="article-head">
-    <h1>{{ .Params.h1 | default .Title }}</h1>
-    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
-  </header>
-  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
-  {{ $any := false }}
-  {{ range (where site.RegularPages "Section" "writing").ByDate.Reverse }}
-  {{ range .Params.corrections }}
-  {{ $any = true }}
-  <section class="block block-correction">
-    <h2><a href="{{ $.RelPermalink }}">{{ . }}</a></h2>
-  </section>
-  {{ end }}
-  {{ with .Params.corrections }}{{ else }}{{ end }}
-  {{ end }}
-  {{ if not $any }}<p class="meta">No corrections recorded.</p>{{ end }}
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-9">
+    <div class="page-header">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      {{ with .Params.definition }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+    {{ with .Content }}{{ . }}{{ end }}
+    {{ $any := false }}
+    {{ range (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+    {{ $page := . }}
+    {{ range .Params.corrections }}
+    {{ $any = true }}
+    <section class="card my-3 border-warning">
+      <div class="card-body">
+        <h2 class="h6 mb-1"><a class="text-body" href="{{ $page.RelPermalink }}">{{ $page.Params.h1 | default $page.Title }}</a></h2>
+        <p class="mb-0">{{ .note | default . }}</p>
+        {{ with .date }}<p class="small text-body-secondary mb-0">{{ time.Format "2 January 2006" . }}</p>{{ end }}
+      </div>
+    </section>
+    {{ end }}
+    {{ end }}
+    {{ if not $any }}<p class="text-body-secondary">No corrections recorded.</p>{{ end }}
+  </div>
 </div>
 {{ end }}

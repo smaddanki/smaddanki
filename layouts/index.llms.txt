@@ -8,8 +8,8 @@
 {{- end }}
 
 ## Pillars
-{{ range partial "pillars.html" . }}{{ $p := . }}
-- [{{ $p.Title }}]({{ $p.Permalink }}): {{ $p.Params.definition }}
+{{ range partial "pillars.html" . }}
+- [{{ .Title }}]({{ .Permalink }}): {{ .Params.definition }}
 {{- end }}
 
 ## Articles
