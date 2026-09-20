@@ -10,7 +10,6 @@
     {{ if gt (len $all) 10 }}
     <p class="mt-4"><a href="{{ "/writing/" | relURL }}">Browse all {{ len $all }} articles &rarr;</a></p>
     {{ end }}
-    {{ partial "subscribe.html" . }}
   </div>
 </div>
 {{ end }}

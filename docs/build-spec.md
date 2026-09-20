@@ -23,6 +23,7 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 /library/                       library index
 /library/<slug>/                library artefact pages
 /definitions/                   three owned terms, each with a stable anchor
+/subscribe/                     email capture
 /corrections/                   corrections log
 /categories/                    category index
 /categories/<slug>/             one page per category
@@ -99,7 +100,7 @@ Rendering rules:
 - `/writing/` index: every published article, most recent first, with dropdown filters for type, category and tag across the top. The dropdowns are `<details>`, so they open without JavaScript, and every item is a real link to the page showing the same subset; the script narrows the list in place and keeps `?type=`, `?category=` and `?tag=` in the URL so a filtered view can be shared.
 - `/labs/`: a simple index.
 - `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
-- Home: the ten most recent articles, most recent first, then a link through to `/writing/` and subscribe. No visible page header — the site name is in the navbar, and the h1 is present but visually hidden. The positioning-statement home page arrives with the visual design.
+- Home: the ten most recent articles, most recent first, then a link through to `/writing/`. Subscribe lives in the navbar, not on the page. No visible page header — the site name is in the navbar, and the h1 is present but visually hidden. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
 
@@ -141,7 +142,7 @@ Build these before writing any content, even as unstyled placeholders:
 
 ## Navigation
 
-Primary: Writing · Labs · Library, plus Subscribe as a visually distinct control.
+Primary: Writing · Labs · Library, plus Subscribe as a visually distinct control in the navbar, next to the colour-mode toggle. It uses Doks' built-in `navBarButton` rather than an override of its 250-line header partial, and links to `/subscribe/`, which carries the form.
 
 Footer: Categories, Definitions, Corrections, RSS, privacy notice, and "Smaddanki LTD" as the legal entity.
 
