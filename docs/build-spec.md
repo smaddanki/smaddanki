@@ -19,7 +19,6 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 /                               home
 /writing/                       index of the categories
 /writing/<slug>/                every article, all three types
-/labs/                          index of type: lab (links to canonical /writing/ URLs)
 /library/                       library index
 /library/<slug>/                library artefact pages
 /definitions/                   three owned terms, each with a stable anchor
@@ -29,7 +28,7 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 /categories/<slug>/             one page per category
 ```
 
-Categories live under `/categories/`. Implement as a `category` taxonomy; the term pages under `src/content/categories/` are the single source of valid slugs, and validation reads that directory. Articles live under `/writing/` regardless of type; `/labs/` is an index only, never a second canonical URL.
+Categories live under `/categories/`. Implement as a `category` taxonomy; the term pages under `src/content/categories/` are the single source of valid slugs, and validation reads that directory. Articles live under `/writing/` regardless of type. There is no separate labs index — the type filter on `/writing/` covers it, and `/writing/?type=lab` is the shareable link.
 
 ## Front matter schema
 
@@ -99,7 +98,6 @@ Rendering rules:
 - `single` variants per `type`, selected by Hugo's type lookup (`src/layouts/perspective/`, `src/layouts/blueprint/`, `src/layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
 - Category term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
 - `/writing/` index: every published article, most recent first, with dropdown filters for type, category and tag across the top. The dropdowns are `<details>`, so they open without JavaScript, and every item is a real link to the page showing the same subset; the script narrows the list in place and keeps `?type=`, `?category=` and `?tag=` in the URL so a filtered view can be shared.
-- `/labs/`: a simple index.
 - `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
 - Home: the ten most recent articles, most recent first, then a link through to `/writing/`. Subscribe lives in the navbar, not on the page. No visible page header — the site name is in the navbar, and the h1 is present but visually hidden. The positioning-statement home page arrives with the visual design.
 
@@ -143,7 +141,7 @@ Build these before writing any content, even as unstyled placeholders:
 
 ## Navigation
 
-Primary: Writing · Labs · Library, plus Subscribe as a visually distinct control in the navbar, next to the colour-mode toggle. It uses Doks' built-in `navBarButton` rather than an override of its 250-line header partial, and links to `/subscribe/`, which carries the form.
+Primary: Writing · Library, plus Subscribe as a visually distinct control in the navbar, next to the colour-mode toggle. It uses Doks' built-in `navBarButton` rather than an override of its 250-line header partial, and links to `/subscribe/`, which carries the form.
 
 Footer: Categories, Definitions, Corrections, RSS, privacy notice, and "Smaddanki LTD" as the legal entity.
 
@@ -157,7 +155,7 @@ Footer: Categories, Definitions, Corrections, RSS, privacy notice, and "Smaddank
 6. Pillar term pages and `/writing/`.
 7. Home, About, Definitions.
 8. SEO partials, robots, sitemap, RSS, llms.txt.
-9. `/labs/`, `/library/`, `/corrections/`, tag pages.
+9. `/library/`, `/corrections/`, tag pages.
 
 Styling stays close to Doks' defaults at this stage. Visual design arrives separately; customisation goes in `src/assets/scss/common/_variables-custom.scss` and `_custom.scss` so Doks can be upgraded without conflict.
 
