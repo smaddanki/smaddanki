@@ -123,6 +123,7 @@ Build these before writing any content, even as unstyled placeholders:
 - `llms.txt` listing category and definition pages.
 - `dateModified` emitted from `lastReviewed`, not from file mtime.
 - Preview deploys must emit `noindex`. Gate on Vercel's environment variable.
+- Analytics load on production deploys only. Vercel Web Analytics and Speed Insights are cookieless, so they need no consent banner and `/privacy/` describes them. Google Analytics is wired but **off**: it sets cookies, so enabling it needs a consent mechanism and a privacy notice rewrite first.
 - The `*.vercel.app` production alias 301s to smaddanki.com.
 
 ## Performance and accessibility

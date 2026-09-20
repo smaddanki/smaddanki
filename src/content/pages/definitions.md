@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Definitions
 url: /definitions/
 h1: Definitions

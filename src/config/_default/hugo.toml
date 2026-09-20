@@ -71,6 +71,9 @@ copyRight = "Smaddanki LTD"
     dir = ":cacheDir/:project"
     maxAge = -1 # "30m"
 
+[frontmatter]
+  lastmod = ["lastReviewed", "date"]
+
 [taxonomies]
   category = "categories"
   tag = "tags"

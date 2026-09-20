@@ -8,7 +8,7 @@ tags:
   - mcp
   - semantic-layer
   - metric-definitions
-draft: false
+draft: true
 library:
   kind: mcp
   version: 0.3.1

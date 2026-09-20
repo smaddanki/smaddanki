@@ -8,7 +8,7 @@ tags:
   - personas
   - audit-evidence
   - financial-services
-draft: false
+draft: true
 library:
   kind: persona
   version: 0.1.0

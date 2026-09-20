@@ -2,11 +2,14 @@
 
 > {{ site.Params.description }}
 
+{{/* Definitions only appear once /definitions/ is published; the data file is
+     read directly, so it would otherwise leak placeholder wording. */}}
+{{ with site.GetPage "/definitions" }}
 ## Definitions
 {{ range $key, $d := hugo.Data.definitions }}
 - [{{ $d.term }}]({{ printf "/definitions/#%s" $key | absURL }}): {{ $d.definition }}
 {{- end }}
-
+{{ end }}
 ## Categories
 {{ range partial "categories.html" . }}
 - [{{ .Title }}]({{ .Permalink }}): {{ .Params.definition }}

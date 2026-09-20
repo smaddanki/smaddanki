@@ -10,7 +10,7 @@ pip3 install --quiet --disable-pip-version-check --break-system-packages -r scri
 python3 scripts/validate.py
 
 if [ "$VERCEL_ENV" = "production" ] || [ -z "$VERCEL_URL" ]; then
-  hugo --configDir src/config --minify --gc
+  hugo --configDir src/config --minify --gc --cleanDestinationDir
 else
-  hugo --configDir src/config --minify --gc --baseURL "https://$VERCEL_URL/"
+  hugo --configDir src/config --minify --gc --cleanDestinationDir --baseURL "https://$VERCEL_URL/"
 fi

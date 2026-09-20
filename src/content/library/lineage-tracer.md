@@ -8,7 +8,7 @@ tags:
   - skills
   - lineage
   - audit-evidence
-draft: false
+draft: true
 library:
   kind: skill
   version: 0.2.0

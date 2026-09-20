@@ -12,7 +12,7 @@
     "create": "hugo new --configDir src/config",
     "dev": "hugo server --configDir src/config --disableFastRender --noHTTPCache",
     "format": "prettier **/** -w -c",
-    "build": "hugo --configDir src/config --minify --gc",
+    "build": "hugo --configDir src/config --minify --gc --cleanDestinationDir",
     "preview": "vite preview --outDir public"
   },
   "dependencies": {

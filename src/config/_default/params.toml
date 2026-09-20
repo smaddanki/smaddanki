@@ -13,6 +13,14 @@ linkedin = ""
 subscribeEndpoint = ""
 tagPageThreshold = 3
 
+# Analytics. Vercel's are cookieless and load on production deploys only.
+# Both must also be switched on in the Vercel project dashboard.
+vercelAnalytics = true
+vercelSpeedInsights = true
+# Google Analytics sets cookies, so it stays off until there is a consent
+# mechanism and the privacy page says so. Put the G-XXXXXXX id here to enable.
+googleAnalyticsID = ""
+
 # Enable mathematical rendering on every page (unless you set the `math` parameter to `false` in front matter)
 math = false # false (default) or true
 mathEngine = "KaTeX" # "KaTeX" (default) or "MathJax"

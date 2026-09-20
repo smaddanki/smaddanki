@@ -3,3 +3,6 @@
 {{ if or $preview .Params.noindex (eq .Type "tags") }}
 <meta name="robots" content="noindex, nofollow" />
 {{ end }}
+
+{{/* Doks emits no author meta. */}}
+<meta name="author" content="{{ site.Params.author }}" />

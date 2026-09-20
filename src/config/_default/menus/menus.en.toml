@@ -3,20 +3,10 @@
   url = "/writing/"
   weight = 10
 
-[[main]]
-  name = "Library"
-  url = "/library/"
-  weight = 30
-
 [[footer]]
   name = "Categories"
   url = "/categories/"
   weight = 10
-
-[[footer]]
-  name = "Definitions"
-  url = "/definitions/"
-  weight = 20
 
 [[footer]]
   name = "Corrections"

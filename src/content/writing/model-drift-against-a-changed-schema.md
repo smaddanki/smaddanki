@@ -12,7 +12,7 @@ tags:
   - evaluation
   - lineage
 summary: Thirty days of the same hundred questions against a schema that changed underneath them on day ten.
-draft: false
+draft: true
 lab:
   runDate: 2026-09-15
   models:
