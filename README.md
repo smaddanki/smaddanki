@@ -10,7 +10,7 @@ this repo's own code.
 
 ```sh
 brew install hugo          # 0.166.0, pinned in vercel.json
-python3 -m pip install pyyaml
+python3 -m pip install -r requirements.txt
 python3 scripts/validate.py && hugo server
 ```
 
