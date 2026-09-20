@@ -1,22 +1,46 @@
 {{ define "main" }}
+{{/* A directory, not a feed: kind filters across the top, then a card grid
+     grouped by kind. The filters are plain anchors, so this needs no JS. */}}
+{{ $all := .Pages }}
 <div class="row justify-content-center">
-  <div class="col-md-12 col-lg-9">
+  <div class="col-md-12 col-lg-10">
     <div class="page-header">
       <h1>{{ .Params.h1 | default .Title }}</h1>
       {{ with .Params.definition }}<p class="lead">{{ . }}</p>{{ end }}
     </div>
     {{ with .Content }}{{ . }}{{ end }}
-    {{ if .Pages }}
-    <ul class="list-unstyled">
-      {{ range .Pages.ByTitle }}
-      <li class="py-3 border-bottom">
-        <h3 class="h5 mb-1"><a class="text-body" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        {{ with .Params.library }}<p class="small text-body-secondary mb-1"><span class="badge text-bg-secondary text-uppercase">{{ .kind }}</span><span class="ms-2">v{{ .version }}</span></p>{{ end }}
-        {{ with .Params.summary }}<p class="mb-0 text-body-secondary">{{ . }}</p>{{ end }}
-      </li>
+
+    {{ if $all }}
+    <nav class="library-filters" aria-label="Artefact kinds">
+      <a class="library-chip" href="#library">All <span class="library-count">{{ len $all }}</span></a>
+      {{ range hugo.Data.library.kinds }}
+      {{ $in := where $all "Params.library.kind" .key }}
+      {{ if $in }}
+      <a class="library-chip" href="#kind-{{ .key }}">{{ .name }} <span class="library-count">{{ len $in }}</span></a>
       {{ end }}
-    </ul>
-    {{ else }}<p class="text-body-secondary">Nothing in the library yet.</p>{{ end }}
+      {{ end }}
+    </nav>
+
+    <div id="library">
+      {{ range hugo.Data.library.kinds }}
+      {{ $kind := . }}
+      {{ $in := where $all "Params.library.kind" $kind.key }}
+      {{ if $in }}
+      <section class="library-section" id="kind-{{ $kind.key }}">
+        <h2 class="h4">{{ $kind.name }}</h2>
+        {{ with $kind.description }}<p class="text-body-secondary">{{ . }}</p>{{ end }}
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+          {{ range $in.ByTitle }}
+          <div class="col">{{ partial "library-card.html" . }}</div>
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
+      {{ end }}
+    </div>
+    {{ else }}
+    <p class="text-body-secondary">Nothing in the library yet.</p>
+    {{ end }}
   </div>
 </div>
 {{ end }}

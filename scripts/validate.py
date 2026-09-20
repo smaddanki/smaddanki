@@ -33,7 +33,7 @@ PILLARS = {
     "changing-data-function",
 }
 REQUIRED = ("h1", "definition", "type", "pillar", "title", "date", "summary")
-LIBRARY_KINDS = {"tool", "mcp", "skill", "persona"}
+LIBRARY_FILE = ROOT / "data" / "library.yaml"
 
 FM = re.compile(r"\A---\n(.*?)\n---\s*\n", re.S)
 
@@ -82,6 +82,12 @@ def check_article(path, fm, vocab, errors):
                 errors.append(f"{where}: lab piece missing `lab.{field}`")
 
 
+def library_kinds():
+    """The kinds declared in data/library.yaml, which also drives /library/."""
+    data = yaml.safe_load(LIBRARY_FILE.read_text(encoding="utf-8")) or {}
+    return {k["key"] for k in data.get("kinds", [])}
+
+
 def check_library(path, fm, errors):
     where = path.relative_to(ROOT)
     lib = fm.get("library") or {}
@@ -91,8 +97,9 @@ def check_library(path, fm, errors):
     for field in ("kind", "version", "checkedAgainst", "repo"):
         if not lib.get(field):
             errors.append(f"{where}: library artefact missing `library.{field}`")
-    if lib.get("kind") and lib["kind"] not in LIBRARY_KINDS:
-        errors.append(f"{where}: library.kind `{lib['kind']}` is not one of {sorted(LIBRARY_KINDS)}")
+    kinds = library_kinds()
+    if lib.get("kind") and lib["kind"] not in kinds:
+        errors.append(f"{where}: library.kind `{lib['kind']}` is not one of {sorted(kinds)}")
 
 
 def write_tag_pages(vocab, counts):

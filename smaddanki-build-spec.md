@@ -101,7 +101,8 @@ Rendering rules:
 - `single` variants per `type`, selected by Hugo's type lookup (`layouts/perspective/`, `layouts/blueprint/`, `layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
 - Pillar term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
 - `/writing/` index: the five pillars, each with its question and definition. Not a feed.
-- `/labs/` and `/library/`: simple indexes.
+- `/labs/`: a simple index.
+- `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
 - Home: an archive of every article, reverse-chronological, plus subscribe. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
