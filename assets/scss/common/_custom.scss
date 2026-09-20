@@ -1,1 +1,126 @@
-// Put your custom SCSS code here
+// Smaddanki. Styles for the things Doks does not ship: the definition sentence
+// under every h1, the shortcode blocks, and blueprint's numbered H2s.
+// Everything here uses Bootstrap's CSS variables so it follows the colour mode.
+
+// The one-sentence definition rendered directly under the h1.
+.definition {
+  border-left: 3px solid var(--bs-border-color);
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+// Shared shell for the auditor, cite, methodology, reviewed, definition and
+// correction shortcodes.
+.block {
+  margin-block: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+
+  > h2,
+  > h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.block-auditor {
+  border-left: 3px solid var(--bs-emphasis-color);
+}
+
+.block-correction {
+  border-left: 3px solid var(--bs-warning);
+}
+
+.cite-block {
+  font-size: 0.9375rem;
+
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+.cite-copy {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  padding: 0.25rem 0.625rem;
+}
+
+// Definition lists inside methodology and reviewed blocks.
+.dl {
+  margin-bottom: 0;
+
+  dt {
+    font-size: 0.875rem;
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+  }
+
+  dd {
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Blueprint numbers its H2s.
+.numbered-h2 {
+  counter-reset: bp;
+
+  h2 {
+    counter-increment: bp;
+
+    &::before {
+      content: counter(bp) ". ";
+      color: var(--bs-secondary-color);
+    }
+  }
+}
+
+.subscribe {
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  input[type="email"] {
+    font: inherit;
+    flex: 1 1 14rem;
+    min-width: 0;
+    padding: 0.5rem 0.75rem;
+    color: var(--bs-body-color);
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+  }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    color: var(--bs-body-bg);
+    background: var(--bs-emphasis-color);
+    border: 1px solid var(--bs-emphasis-color);
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem 1rem;
+  }
+}
+
+figure figcaption {
+  font-size: 0.875rem;
+  color: var(--bs-secondary-color);
+  margin-top: 0.5rem;
+}
+
+// Tables and code blocks scroll inside their own container.
+.scroll-x {
+  overflow-x: auto;
+  max-width: 100%;
+}
