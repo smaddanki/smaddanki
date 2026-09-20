@@ -133,7 +133,7 @@ Build these before writing any content, even as unstyled placeholders:
 
 ## Performance and accessibility
 
-- Self-hosted fonts, subset, `font-display: swap`. No external font requests. **Outstanding** — Doks' defaults have not been checked for this.
+- Self-hosted fonts, subset, `font-display: swap`. No external font requests. Satisfied by Doks, which bundles Jost as woff2; verified no external font requests in the build.
 - Green Core Web Vitals on mobile.
 - Tables and code blocks scroll inside their own container; the page body never scrolls sideways.
 - Light, dark and auto via Doks' colour-mode toggle (`params.doks.colorMode`).
