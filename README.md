@@ -31,18 +31,43 @@ The site source lives under `src/`, wired up through the mounts in
 `src/config/_default/module.toml`. Only tooling and metadata sit at the root.
 
 ```
-src/content/writing/      articles, one file per piece, all three types
-src/content/library/      library artefacts
-src/content/categories/   one term page per category, the source of valid slugs
-src/data/tags.yaml        controlled tag vocabulary
-src/data/definitions.yaml owned-term wording, the single source
-src/data/library.yaml     artefact kinds, their order, icon and colour
+src/content/writing/      ← articles go here, one file per piece, all three types
+src/content/library/      ← library artefacts go here
+src/content/categories/   one folder per category; touched only when adding one
+src/content/pages/        standalone pages (privacy, definitions, …)
+src/data/                 tags.yaml, definitions.yaml, library.yaml
+src/archetypes/           front matter templates used by `npm run create`
 src/layouts/              our overrides of Doks
 src/config/               Hugo config, passed with --configDir
-scripts/validate.py       front matter and tag validation, run before every build
-scripts/build.sh          the Vercel build
+src/generated/tags/       written by validate.py — not authored, do not edit
+scripts/                  validate.py, build.sh, requirements.txt
 docs/build-spec.md        the spec this site is built from
 ```
+
+## Where to author
+
+Almost always `src/content/writing/`. Start a piece with:
+
+```sh
+npm run create -- writing/my-new-piece.md
+```
+
+That fills in the whole front matter schema from `src/archetypes/writing.md`,
+with `draft: true`, so nothing publishes until you clear it. A library artefact
+is the same with `library/my-thing.md`.
+
+The filename becomes the slug, so name it deliberately — see Writing below.
+
+Two folders exist that are **not** for authoring:
+
+- `src/content/categories/` holds the category pages themselves — each one's
+  title and definition. Hugo requires taxonomy term content to live at
+  `content/<plural>/<term>/_index.md`, which is why it sits beside `writing/`.
+  Add a folder here only when you want a new category; the directory is the
+  single source of valid `categories:` values, and the build fails on a slug
+  with no page.
+- `src/generated/tags/` is written by `scripts/validate.py` on every build. It
+  is mounted into the site at `content/tags`, so it is out of the way.
 
 ## Writing
 

@@ -12,6 +12,12 @@
   source = "src/content"
   target = "content"
 
+# Tag term pages are written by scripts/validate.py, not authored. Keeping them
+# out of src/content/ leaves that tree to things a person writes.
+[[mounts]]
+  source = "src/generated/tags"
+  target = "content/tags"
+
 ## data
 [[mounts]]
   source = "node_modules/@thulite/doks-core/data"

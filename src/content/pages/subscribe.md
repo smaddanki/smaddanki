@@ -1,5 +1,6 @@
 ---
 title: Subscribe
+url: /subscribe/
 h1: Subscribe
 type: subscribe
 definition: New pieces by email. Your address is used for nothing else.

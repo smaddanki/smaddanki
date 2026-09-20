@@ -8,7 +8,7 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 - Our own code lives under `src/` — `src/layouts/`, `src/assets/`, `src/config/`, `src/content/`, `src/data/`, `src/static/` — wired up through the mounts in `src/config/_default/module.toml`. Hugo needs `--configDir src/config`; use the npm scripts. Never edit anything under `node_modules/`; override it at the same path under `src/layouts/`.
 - Every page statically generated. No client-side fetching of *content*. Doks' FlexSearch index is the one exception, and it is generated at build time.
 - Keep JavaScript to what Doks ships, the citation copy button, and the filters on `/writing/`. Every one of those degrades to working HTML. Do not add more.
-- Content is markdown in `src/content/`. Front matter is the only metadata source.
+- Content is markdown in `src/content/`, authored in `writing/` and `library/`. Front matter is the only metadata source, and `src/archetypes/` holds a template per kind so `hugo new` produces the full schema. Generated content — the tag term stubs — lives in `src/generated/` and is mounted in, never written into the authoring tree.
 - Slugs never change after publication. Any change requires a redirect entry.
 - Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on category pages.
 - Site search comes with Doks and is kept. The home page is an archive for now; there is no About page.

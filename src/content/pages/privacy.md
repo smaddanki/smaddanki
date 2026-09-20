@@ -1,5 +1,6 @@
 ---
 title: Privacy
+url: /privacy/
 h1: Privacy
 definition: What this site collects, which is close to nothing.
 ---

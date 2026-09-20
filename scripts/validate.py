@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "src"
 CONTENT = SRC / "content"
 TAGS_FILE = SRC / "data" / "tags.yaml"
-TAGS_DIR = CONTENT / "tags"
+TAGS_DIR = SRC / "generated" / "tags"
 
 THRESHOLD = 3
 TYPES = {"perspective", "blueprint", "lab"}
