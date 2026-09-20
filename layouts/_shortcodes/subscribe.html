@@ -1,0 +1,14 @@
+{{/* Posts straight to the ESP's public endpoint. No secrets in the repo. */}}
+<section class="block subscribe" id="subscribe">
+  <h2>Subscribe</h2>
+  <p>New pieces by email. No other use of your address.</p>
+  {{ with site.Params.subscribeEndpoint }}
+  <form action="{{ . }}" method="post" target="_blank">
+    <label class="skip-link" for="subscribe-email">Email address</label>
+    <input id="subscribe-email" type="email" name="email" placeholder="you@example.com" required />
+    <button type="submit">Subscribe</button>
+  </form>
+  {{ else }}
+  <p class="meta">Set <code>params.subscribeEndpoint</code> in hugo.toml to enable the form.</p>
+  {{ end }}
+</section>

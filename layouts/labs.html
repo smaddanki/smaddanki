@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{/* Index only. Every link points at the canonical /writing/ URL. */}}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ .Params.h1 | default .Title }}</h1>
+    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ $labs := where (where site.RegularPages "Section" "writing") "Params.type" "lab" }}
+  {{ if $labs }}
+  {{ partial "entry-list.html" $labs.ByDate.Reverse }}
+  {{ else }}
+  <p class="meta">No lab pieces published yet.</p>
+  {{ end }}
+</div>
+{{ end }}

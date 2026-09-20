@@ -1,0 +1,27 @@
+{{/* Pre-formatted citation. The copy button is the one permitted piece of JS,
+     and it ships inline here so it reaches only pages that use this shortcode. */}}
+{{ $p := .Page }}
+{{ $text := printf "%s. %q. %s, %s. %s"
+  site.Params.author
+  ($p.Params.h1 | default $p.Title)
+  site.Title
+  ($p.Date.Format "2 January 2006")
+  $p.Permalink }}
+<section class="block cite-block" id="cite">
+  <h2>Cite this</h2>
+  <pre id="cite-text">{{ $text }}</pre>
+  <button class="cite-copy" type="button" hidden>Copy citation</button>
+</section>
+<script>
+  (function () {
+    var btn = document.currentScript.previousElementSibling.querySelector('.cite-copy');
+    if (!navigator.clipboard) return;
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(document.getElementById('cite-text').textContent).then(function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = 'Copy citation'; }, 2000);
+      });
+    });
+  })();
+</script>

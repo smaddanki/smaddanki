@@ -1,0 +1,13 @@
+{{ $p := .Page }}
+<section class="block" id="reviewed">
+  <h2>Review history</h2>
+  <p>Last reviewed {{ with $p.Params.lastReviewed }}{{ time.Format "2 January 2006" . }}{{ else }}—{{ end }}. Published {{ $p.Date.Format "2 January 2006" }}.</p>
+  {{ with $p.Params.changelog }}
+  <details>
+    <summary>Changelog</summary>
+    <ul>
+      {{ range . }}<li><strong>{{ time.Format "2 Jan 2006" .date }}</strong> — {{ .note }}</li>{{ end }}
+    </ul>
+  </details>
+  {{ end }}
+</section>

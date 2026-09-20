@@ -1,0 +1,7 @@
+<p class="meta">
+  <span class="type-badge">{{ .Params.type }}</span>
+  <span>{{ .Date.Format "2 January 2006" }}</span>
+  {{ with site.GetPage (printf "/pillar/%s" .Params.pillar) }}
+  <span><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
+  {{ end }}
+</p>

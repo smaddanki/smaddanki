@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{/* Not a feed: the five pillars, each with its question and definition. */}}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ .Params.h1 | default .Title }}</h1>
+    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  <ul class="pillar-list">
+    {{ range partial "pillars.html" . }}
+    {{ $p := . }}
+    <li>
+      <h2><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2>
+      {{ with $p.Params.question }}<p class="question">{{ . }}</p>{{ end }}
+      {{ with $p.Params.definition }}<p>{{ . }}</p>{{ end }}
+      <p class="meta"><span>{{ len $p.Pages }} article{{ if ne (len $p.Pages) 1 }}s{{ end }}</span></p>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+{{ end }}

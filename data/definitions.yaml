@@ -1,0 +1,13 @@
+# Single source for owned-term wording. The `definition` shortcode and
+# /definitions/ both read from here, so the sentence is identical everywhere.
+# Replace the placeholder sentences with the real ones.
+
+agent-data-layer:
+  term: Agent data layer
+  definition: PLACEHOLDER — one sentence defining the agent data layer.
+silent-failure:
+  term: Silent failure
+  definition: PLACEHOLDER — one sentence defining silent failure.
+agent-tco:
+  term: Agent TCO
+  definition: PLACEHOLDER — one sentence defining the real total cost of ownership of an agent.

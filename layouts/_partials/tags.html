@@ -1,0 +1,17 @@
+{{/* A tag links only once it holds `tagPageThreshold` published articles;
+     below that it is recorded but rendered as plain text. */}}
+{{ with .Params.tags }}
+<p class="tag-row">
+  {{ range . }}
+  {{ $tag := . }}
+  {{ $term := site.GetPage (printf "/tags/%s" $tag) }}
+  {{ $count := 0 }}
+  {{ with index site.Taxonomies.tags $tag }}{{ $count = len .Pages }}{{ end }}
+  {{ if and $term (ge $count (int site.Params.tagPageThreshold)) }}
+  <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a>
+  {{ else }}
+  <span>{{ with $term }}{{ .Title }}{{ else }}{{ $tag }}{{ end }}</span>
+  {{ end }}
+  {{ end }}
+</p>
+{{ end }}

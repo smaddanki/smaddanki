@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{/* Utility page: reverse-chronological, noindex (set in head.html). */}}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ partial "entry-list.html" .Pages.ByDate.Reverse }}
+</div>
+{{ end }}

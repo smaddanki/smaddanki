@@ -1,0 +1,11 @@
+{{ define "main" }}
+{{/* Archive for now: every published article, reverse-chronological. */}}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ site.Title }}</h1>
+    <p class="definition">{{ site.Params.description }}</p>
+  </header>
+  {{ partial "entry-list.html" (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+  {{ partial "subscribe.html" . }}
+</div>
+{{ end }}

@@ -1,0 +1,10 @@
+{{ $src := .Get "src" }}
+{{ $id := .Get "id" | default (.Get "caption" | urlize) }}
+<figure id="{{ $id }}">
+  <img src="{{ $src | relURL }}" alt="{{ .Get "alt" | default (.Get "caption") }}" loading="lazy" />
+  <figcaption>
+    {{ .Get "caption" }}
+    <a href="{{ .Page.RelPermalink }}#{{ $id }}">permalink</a> ·
+    <a href="{{ $src | relURL }}" download>download SVG</a>
+  </figcaption>
+</figure>

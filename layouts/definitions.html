@@ -1,0 +1,17 @@
+{{ define "main" }}
+{{/* Wording comes from data/definitions.yaml, the single source. */}}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ .Params.h1 | default .Title }}</h1>
+    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ range $key, $d := hugo.Data.definitions }}
+  <section class="block" id="{{ $key }}">
+    <h2>{{ $d.term }}</h2>
+    <p>{{ $d.definition }}</p>
+    <p class="meta"><a href="#{{ $key }}">Permalink</a></p>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,8 @@
+{{/* Recurring Blueprint end block. The stable id lets it be deep-linked and
+     lets /what-you-show-the-auditor/ aggregate it. */}}
+{{ $id := .Get "id" | default (printf "auditor-%s" (.Page.File.BaseFileName)) }}
+<section class="block block-auditor" id="{{ $id }}">
+  <h2>What you show the auditor</h2>
+  <div class="prose">{{ .Inner | .Page.RenderString }}</div>
+  <p class="meta"><a href="{{ .Page.RelPermalink }}#{{ $id }}">Permalink</a></p>
+</section>

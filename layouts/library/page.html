@@ -1,0 +1,19 @@
+{{ define "main" }}
+<article class="wrap">
+  <header class="article-head">
+    <h1>{{ .Params.h1 | default .Title }}</h1>
+    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Params.library }}
+  <section class="block">
+    <dl class="dl">
+      <dt>Kind</dt><dd>{{ .kind }}</dd>
+      <dt>Version</dt><dd>{{ .version }}</dd>
+      <dt>Checked against</dt><dd>{{ .checkedAgainst }}</dd>
+      <dt>Repository</dt><dd><a href="{{ .repo }}">{{ .repo }}</a></dd>
+    </dl>
+  </section>
+  {{ end }}
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}

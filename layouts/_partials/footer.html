@@ -1,0 +1,29 @@
+<footer class="site-footer wrap">
+  <div class="footer-cols">
+    <div>
+      <h2>Pillars</h2>
+      <ul>
+        {{ range partial "pillars.html" . }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
+    <div>
+      <h2>Reference</h2>
+      <ul>
+        <li><a href="{{ "/definitions/" | relURL }}">Definitions</a></li>
+        <li><a href="{{ "/what-you-show-the-auditor/" | relURL }}">What you show the auditor</a></li>
+        <li><a href="{{ "/corrections/" | relURL }}">Corrections</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Follow</h2>
+      <ul>
+        <li><a href="{{ "/feed.xml" | relURL }}">RSS</a></li>
+        {{ with site.Params.linkedin }}<li><a href="{{ . }}" rel="me">LinkedIn</a></li>{{ end }}
+        <li><a href="{{ "/privacy/" | relURL }}">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-legal">Smaddanki LTD</p>
+</footer>

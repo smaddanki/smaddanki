@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "hugo",
+  "buildCommand": "python3 scripts/validate.py && hugo --minify",
+  "outputDirectory": "public",
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.166.0"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "smaddanki.vercel.app" }],
+      "destination": "https://smaddanki.com/:path*",
+      "permanent": true
+    }
+  ]
+}

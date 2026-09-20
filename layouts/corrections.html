@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="wrap">
+  <header class="article-head">
+    <h1>{{ .Params.h1 | default .Title }}</h1>
+    {{ with .Params.definition }}<p class="definition">{{ . }}</p>{{ end }}
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ $any := false }}
+  {{ range (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+  {{ range .Params.corrections }}
+  {{ $any = true }}
+  <section class="block block-correction">
+    <h2><a href="{{ $.RelPermalink }}">{{ . }}</a></h2>
+  </section>
+  {{ end }}
+  {{ with .Params.corrections }}{{ else }}{{ end }}
+  {{ end }}
+  {{ if not $any }}<p class="meta">No corrections recorded.</p>{{ end }}
+</div>
+{{ end }}

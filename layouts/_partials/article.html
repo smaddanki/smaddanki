@@ -1,0 +1,31 @@
+{{/* Shared article body. Blueprint gets the sticky TOC and numbered H2s; the
+     other two types inherit everything else from here. */}}
+{{ $type := .Params.type }}
+{{ $blueprint := eq $type "blueprint" }}
+<article class="wrap {{ if $blueprint }}layout-blueprint numbered-h2{{ end }}">
+  {{ if $blueprint }}
+  <details class="toc" open>
+    <summary>On this page</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{ end }}
+
+  <div class="article-body">
+    <header class="article-head">
+      <h1>{{ .Params.h1 | default .Title }}</h1>
+      <p class="definition">{{ .Params.definition }}</p>
+      {{ partial "article-meta.html" . }}
+      {{ with .Params.lastReviewed }}
+      <p class="meta"><span>Last reviewed {{ time.Format "2 January 2006" . }}</span></p>
+      {{ end }}
+    </header>
+
+    {{ if eq $type "lab" }}
+    {{ partial "methodology.html" . }}
+    {{ end }}
+
+    <div class="prose">{{ .Content }}</div>
+
+    {{ partial "tags.html" . }}
+  </div>
+</article>

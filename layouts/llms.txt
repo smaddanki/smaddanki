@@ -1,0 +1,18 @@
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+
+## Definitions
+{{ range $key, $d := hugo.Data.definitions }}
+- [{{ $d.term }}]({{ printf "/definitions/#%s" $key | absURL }}): {{ $d.definition }}
+{{- end }}
+
+## Pillars
+{{ range partial "pillars.html" . }}{{ $p := . }}
+- [{{ $p.Title }}]({{ $p.Permalink }}): {{ $p.Params.definition }}
+{{- end }}
+
+## Articles
+{{ range (where site.RegularPages "Section" "writing").ByDate.Reverse }}
+- [{{ .Params.h1 | default .Title }}]({{ .Permalink }}): {{ .Params.definition }}
+{{- end }}
