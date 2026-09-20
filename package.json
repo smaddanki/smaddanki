@@ -9,10 +9,10 @@
     "url": "https://github.com/smaddanki/smaddanki.git"
   },
   "scripts": {
-    "create": "hugo new",
-    "dev": "hugo server --disableFastRender --noHTTPCache",
+    "create": "hugo new --configDir src/config",
+    "dev": "hugo server --configDir src/config --disableFastRender --noHTTPCache",
     "format": "prettier **/** -w -c",
-    "build": "hugo --minify --gc",
+    "build": "hugo --configDir src/config --minify --gc",
     "preview": "vite preview --outDir public"
   },
   "dependencies": {

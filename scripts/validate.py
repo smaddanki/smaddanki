@@ -19,8 +19,9 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-CONTENT = ROOT / "content"
-TAGS_FILE = ROOT / "data" / "tags.yaml"
+SRC = ROOT / "src"
+CONTENT = SRC / "content"
+TAGS_FILE = SRC / "data" / "tags.yaml"
 TAGS_DIR = CONTENT / "tags"
 
 THRESHOLD = 3
@@ -33,7 +34,7 @@ PILLARS = {
     "changing-data-function",
 }
 REQUIRED = ("h1", "definition", "type", "pillar", "title", "date", "summary")
-LIBRARY_FILE = ROOT / "data" / "library.yaml"
+LIBRARY_FILE = SRC / "data" / "library.yaml"
 
 FM = re.compile(r"\A---\n(.*?)\n---\s*\n", re.S)
 

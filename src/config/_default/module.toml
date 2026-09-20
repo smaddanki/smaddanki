@@ -9,7 +9,7 @@
 
 ## content
 [[mounts]]
-  source = "content"
+  source = "src/content"
   target = "content"
 
 ## data
@@ -18,12 +18,12 @@
   target = "data"
 
 [[mounts]]
-  source = "data"
+  source = "src/data"
   target = "data"
 
 ## layouts
 [[mounts]]
-  source = "layouts"
+  source = "src/layouts"
   target = "layouts"
 
 [[mounts]]
@@ -53,7 +53,7 @@
   target = "i18n"
 
 [[mounts]]
-  source = "i18n"
+  source = "src/i18n"
   target = "i18n"
 
 ## archetypes
@@ -62,7 +62,7 @@
   target = "archetypes"
 
 [[mounts]]
-  source = "archetypes"
+  source = "src/archetypes"
   target = "archetypes"
 
 ## assets
@@ -87,7 +87,7 @@
   target = "assets/watching/hugo_stats.json"
 
 [[mounts]]
-  source = "assets"
+  source = "src/assets"
   target = "assets"
 
 ## static
@@ -96,5 +96,5 @@
   target = "static"
 
 [[mounts]]
-  source = "static"
+  source = "src/static"
   target = "static"

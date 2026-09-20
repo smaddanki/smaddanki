@@ -38,4 +38,4 @@ repos:
         entry: python3 scripts/validate.py
         language: system
         pass_filenames: false
-        files: ^(content/|data/)
+        files: ^src/(content|data)/

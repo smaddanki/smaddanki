@@ -1,7 +1,7 @@
 # Single language. Doks' de and nl starter entries are removed.
 [en]
   label = "English"
-  contentDir = "content"
+  contentDir = "src/content"
   weight = 10
   [en.params]
     languageISO = "EN"

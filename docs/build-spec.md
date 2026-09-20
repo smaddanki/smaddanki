@@ -5,10 +5,10 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 ## Non-negotiables
 
 - Hugo, built on **Doks** (`@thulite/doks-core`), installed from npm and mounted through Hugo modules. Doks is a real upstream dependency: it is pinned in `package.json` and updated deliberately, not vendored.
-- Our own code lives in `layouts/`, `assets/` and `config/`, overriding Doks where the two disagree. Never edit anything under `node_modules/`.
+- Our own code lives under `src/` — `src/layouts/`, `src/assets/`, `src/config/`, `src/content/`, `src/data/`, `src/static/` — wired up through the mounts in `src/config/_default/module.toml`. Hugo needs `--configDir src/config`; use the npm scripts. Never edit anything under `node_modules/`; override it at the same path under `src/layouts/`.
 - Every page statically generated. No client-side fetching of *content*. Doks' FlexSearch index is the one exception, and it is generated at build time.
 - Keep JavaScript to what Doks ships plus the citation copy button. Do not add more.
-- Content is markdown in `content/`. Front matter is the only metadata source.
+- Content is markdown in `src/content/`. Front matter is the only metadata source.
 - Slugs never change after publication. Any change requires a redirect entry.
 - Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on pillar pages.
 - Site search comes with Doks and is kept. The home page is an archive for now; there is no About page.
@@ -75,7 +75,7 @@ Fail the build if `h1`, `definition`, `type` or `pillar` is missing on an articl
 
 ## Tags
 
-Tags are a controlled vocabulary, not free text. Hold the list in `data/tags.yaml` with a display name and one-line description per tag. **Fail the build on any tag not in that file** — typos and near-duplicates (`mcp` / `MCP` / `mcp-servers`) are the failure mode this prevents.
+Tags are a controlled vocabulary, not free text. Hold the list in `src/data/tags.yaml` with a display name and one-line description per tag. **Fail the build on any tag not in that file** — typos and near-duplicates (`mcp` / `MCP` / `mcp-servers`) are the failure mode this prevents.
 
 Tags are orthogonal to pillars by design. No tag may map one-to-one onto a pillar. They exist to detect an emerging sixth section: when a tag reaches roughly fifteen articles with a distinct reader, it becomes a candidate for promotion.
 
@@ -98,11 +98,11 @@ Rendering rules:
 
 ## Layouts
 
-- `single` variants per `type`, selected by Hugo's type lookup (`layouts/perspective/`, `layouts/blueprint/`, `layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
+- `single` variants per `type`, selected by Hugo's type lookup (`src/layouts/perspective/`, `src/layouts/blueprint/`, `src/layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
 - Pillar term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
 - `/writing/` index: the five pillars, each with its question and definition. Not a feed.
 - `/labs/`: a simple index.
-- `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
+- `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
 - Home: an archive of every article, reverse-chronological, plus subscribe. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
@@ -123,7 +123,7 @@ Build these before writing any content, even as unstyled placeholders:
 ## SEO and GEO
 
 - Canonical URL on every page. `metaDataBase`-equivalent via `baseURL`.
-- JSON-LD via `@thulite/seo`, extended in `layouts/_partials/head/custom-head.html` where it falls short: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
+- JSON-LD via `@thulite/seo`, extended in `src/layouts/_partials/head/custom-head.html` where it falls short: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
 - `robots.txt` explicitly allowing GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bingbot.
 - `sitemap.xml`, and RSS as **full text**, not summaries, at `/feed.xml`.
 - `llms.txt` listing pillar and definition pages.
@@ -163,13 +163,13 @@ Footer: all five pillars by name, Definitions, the auditor index, Corrections, R
 8. SEO partials, robots, sitemap, RSS, llms.txt.
 9. `/labs/`, `/library/`, `/corrections/`, `/what-you-show-the-auditor/`, tag pages.
 
-Styling stays close to Doks' defaults at this stage. Visual design arrives separately; customisation goes in `assets/scss/common/_variables-custom.scss` and `_custom.scss` so Doks can be upgraded without conflict.
+Styling stays close to Doks' defaults at this stage. Visual design arrives separately; customisation goes in `src/assets/scss/common/_variables-custom.scss` and `_custom.scss` so Doks can be upgraded without conflict.
 
 ## Acceptance
 
 - Three sample articles, one per type, render correctly.
 - Build fails when a required front matter field is missing.
-- Build fails on a tag absent from `data/tags.yaml`.
+- Build fails on a tag absent from `src/data/tags.yaml`.
 - A tag with fewer than three articles produces no page and renders as plain text.
 - RSS validates and carries full text.
 - Structured data passes a rich-results test.
