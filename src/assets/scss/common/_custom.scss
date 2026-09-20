@@ -9,8 +9,8 @@
   margin-bottom: 1rem;
 }
 
-// Shared shell for the auditor, cite, methodology, reviewed, definition and
-// correction shortcodes.
+// Shared shell for the cite, methodology, reviewed, definition and correction
+// shortcodes.
 .block {
   margin-block: 2rem;
   padding: 1.25rem 1.5rem;
@@ -26,10 +26,6 @@
   > :last-child {
     margin-bottom: 0;
   }
-}
-
-.block-auditor {
-  border-left: 3px solid var(--bs-emphasis-color);
 }
 
 .block-correction {

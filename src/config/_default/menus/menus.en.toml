@@ -24,11 +24,6 @@
   weight = 20
 
 [[footer]]
-  name = "What you show the auditor"
-  url = "/what-you-show-the-auditor/"
-  weight = 30
-
-[[footer]]
   name = "Corrections"
   url = "/corrections/"
   weight = 40

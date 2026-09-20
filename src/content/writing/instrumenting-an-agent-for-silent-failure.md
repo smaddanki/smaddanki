@@ -29,12 +29,6 @@ PLACEHOLDER.
 
 PLACEHOLDER.
 
-{{< auditor >}}
-PLACEHOLDER — the evidence this blueprint produces: the assertion set, its
-version history, the sampling schedule, and the log of assertions that fired
-with what was done about each.
-{{< /auditor >}}
-
 {{< reviewed >}}
 
 {{< cite >}}
