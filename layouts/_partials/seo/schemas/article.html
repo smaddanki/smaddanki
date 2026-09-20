@@ -1,0 +1,30 @@
+{{- /* Overrides @thulite/seo's article schema so it follows the build spec:
+       headline is the search-bearing h1 rather than the conversational title,
+       description is the summary, dateModified comes from lastReviewed rather
+       than file mtime, and the author is a Person with sameAs to LinkedIn. */ -}}
+{{- $headline := .Params.h1 | default .Title -}}
+{{- $description := .Params.summary | default .Params.definition -}}
+{{- $modified := .Params.lastReviewed | default .Date -}}
+
+{{- $author := dict "@type" "Person" "name" site.Params.author "url" site.BaseURL -}}
+{{- with site.Params.linkedin }}{{ $author = merge $author (dict "sameAs" (slice .)) }}{{ end -}}
+
+{{- $publisher := dict "@type" "Organization" "name" site.Params.legalEntity "url" site.BaseURL -}}
+{{- with site.Params.linkedin }}{{ $publisher = merge $publisher (dict "sameAs" (slice .)) }}{{ end -}}
+
+{{- $article := dict
+  "@type" "Article"
+  "headline" $headline
+  "description" $description
+  "isPartOf" (dict "@id" .Permalink)
+  "mainEntityOfPage" (dict "@id" .Permalink)
+  "url" .Permalink
+  "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00")
+  "dateModified" (time.Format "2006-01-02T15:04:05-07:00" $modified)
+  "author" $author
+  "publisher" $publisher
+-}}
+
+<script type="application/ld+json">
+  {{ (dict "@context" "https://schema.org" "@graph" (slice $article)) | jsonify | safeJS }}
+</script>

@@ -143,10 +143,10 @@ mathEngine = "KaTeX" # "KaTeX" (default) or "MathJax"
   [seo.schemas]
     type = "Organization" # Organization (default) or Person
     logo = "favicon-512x512.png" # Logo of Organization — favicon-512x512.png (default)
-    name = "Thulite" # Name of Organization or Person
-    sameAs = [] # E.g. ["https://github.com/thuliteio/thulite", "https://fosstodon.org/@thulite"]
+    name = "Smaddanki LTD" # Name of Organization or Person
+    sameAs = [] # Add the LinkedIn profile URL here
     images = ["cover.png"] # ["cover.png"] (default)
-    article = [] # Article sections
+    article = ["writing"] # Article sections
     newsArticle = [] # NewsArticle sections
-    blogPosting = ["blog"] # BlogPosting sections
+    blogPosting = [] # BlogPosting sections
     product = [] # Product sections

@@ -14,6 +14,31 @@
   weight = 30
 
 [[footer]]
+  name = "The agent data layer"
+  url = "/agent-data-layer/"
+  weight = 1
+
+[[footer]]
+  name = "The silent failure problem"
+  url = "/silent-failure-problem/"
+  weight = 2
+
+[[footer]]
+  name = "Agent risk and controls"
+  url = "/agent-risk-and-controls/"
+  weight = 3
+
+[[footer]]
+  name = "The real TCO of agents"
+  url = "/real-tco-of-agents/"
+  weight = 4
+
+[[footer]]
+  name = "The changing data function"
+  url = "/changing-data-function/"
+  weight = 5
+
+[[footer]]
   name = "Definitions"
   url = "/definitions/"
   weight = 10
