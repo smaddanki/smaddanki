@@ -100,7 +100,7 @@ Rendering rules:
 - `/writing/` index: every published article, most recent first, with filters for type, category and tag across the top. Each filter chip is a real link to the page showing the same subset, so the page works without JavaScript; the script narrows the list in place and keeps `?type=`, `?category=` and `?tag=` in the URL so a filtered view can be shared.
 - `/labs/`: a simple index.
 - `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
-- Home: the ten most recent articles, most recent first, then a link through to `/writing/` and subscribe. The positioning-statement home page arrives with the visual design.
+- Home: the ten most recent articles, most recent first, then a link through to `/writing/` and subscribe. No visible page header — the site name is in the navbar, and the h1 is present but visually hidden. The positioning-statement home page arrives with the visual design.
 
 ## Shortcodes
 
@@ -120,6 +120,7 @@ Build these before writing any content, even as unstyled placeholders:
 ## SEO and GEO
 
 - Canonical URL on every page. `metaDataBase`-equivalent via `baseURL`.
+- Meta description comes from the page's own `definition` sentence, falling back to `summary` and then the site description. No page ships an empty or duplicated one.
 - JSON-LD via `@thulite/seo`, extended in `src/layouts/_partials/head/custom-head.html` where it falls short: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
 - `robots.txt` explicitly allowing GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bingbot.
 - `sitemap.xml`, and RSS as **full text**, not summaries, at `/feed.xml`.
