@@ -374,3 +374,42 @@ figure figcaption {
 .filters .filter-dropdown > summary::after {
   content: "";
 }
+
+// Tags at the foot of an article. A tag below the rendering threshold is a
+// span rather than a link, so both need to look like a tag.
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2.5rem 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.tag-row-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bs-secondary-color);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--bs-body-color);
+  text-decoration: none;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 2rem;
+}
+
+a.tag:hover {
+  border-color: var(--bs-emphasis-color);
+}
+
+// Space the prev/next cards away from what precedes them.
+.page-nav {
+  margin-top: 2.5rem;
+}

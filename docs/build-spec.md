@@ -90,6 +90,7 @@ Rendering rules:
 - A tag page renders only once the tag holds **three or more** published articles. Below that the tag is recorded in front matter but produces no page, and the tag is shown as plain text rather than a link. This avoids near-empty index pages.
 - Tag pages are reverse-chronological. They are utility pages, unlike category pages.
 - Tags appear at the foot of articles and on category pages. **Never in the navigation.**
+- Articles carry previous/next links in date order: previous is the older piece, next the newer one.
 - Tag pages carry `noindex`. Category pages are the citation targets; tag pages would compete with them for the same content.
 - Expose a build-time report of tag counts (`hugo` output or a small script) so the promotion threshold can be checked without counting by hand.
 
