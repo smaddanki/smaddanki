@@ -1,6 +1,6 @@
 # Controlled vocabulary. A tag not listed here fails the build.
 # When a tag reaches ~15 articles with a distinct reader, consider promoting it
-# to a sixth pillar. Run `python3 scripts/validate.py --report` for counts.
+# to a category of its own. Run `python3 scripts/validate.py --report` for counts.
 
 semantic-layer:
   name: Semantic layer

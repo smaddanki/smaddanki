@@ -72,7 +72,7 @@ copyRight = "Smaddanki LTD"
     maxAge = -1 # "30m"
 
 [taxonomies]
-  pillar = "pillar"
+  category = "categories"
   tag = "tags"
 
 [permalinks]

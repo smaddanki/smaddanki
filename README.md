@@ -33,7 +33,7 @@ The site source lives under `src/`, wired up through the mounts in
 ```
 src/content/writing/      articles, one file per piece, all three types
 src/content/library/      library artefacts
-src/content/pillar/       the five pillar term pages, each with a url: override
+src/content/categories/   one term page per category, the source of valid slugs
 src/data/tags.yaml        controlled tag vocabulary
 src/data/definitions.yaml owned-term wording, the single source
 src/data/library.yaml     artefact kinds, their order, icon and colour
@@ -50,8 +50,8 @@ The filename becomes the slug and **must not change after publication** — a
 rename needs a 301 in `vercel.json`.
 
 Required front matter: `title`, `h1`, `definition`, `date`, `lastReviewed`,
-`type`, `pillar`, `summary`. `type` is one of `perspective`, `blueprint`, `lab`,
-and selects the layout. `pillar` is exactly one of the five slugs. Lab pieces
+`type`, `category`, `summary`. `type` is one of `perspective`, `blueprint`, `lab`,
+and selects the layout. `category` is exactly one, and must have a page under `src/content/categories/`. Lab pieces
 also need a `lab:` block; library artefacts a `library:` block.
 
 ## Validation
@@ -76,7 +76,7 @@ links inside a preview stay inside it.
 
 ## Still placeholder
 
-- Pillar questions and definitions, in `src/content/pillar/*/_index.md`.
+- Category definitions, in `src/content/categories/*/_index.md`.
 - The three owned terms in `src/data/definitions.yaml`.
 - Article bodies, and the four library artefacts.
 - `params.linkedin` and `params.subscribeEndpoint` in `src/config/_default/params.toml`.

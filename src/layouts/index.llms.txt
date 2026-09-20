@@ -7,8 +7,8 @@
 - [{{ $d.term }}]({{ printf "/definitions/#%s" $key | absURL }}): {{ $d.definition }}
 {{- end }}
 
-## Pillars
-{{ range partial "pillars.html" . }}
+## Categories
+{{ range partial "categories.html" . }}
 - [{{ .Title }}]({{ .Permalink }}): {{ .Params.definition }}
 {{- end }}
 

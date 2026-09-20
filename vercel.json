@@ -10,6 +10,21 @@
   },
   "redirects": [
     {
+      "source": "/13-design-principles-for-data-pipelines",
+      "destination": "/writing/13-design-principles-for-data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/core-data-pipeline-building-blocks-every-engineer-should-know",
+      "destination": "/writing/core-data-pipeline-building-blocks-every-engineer-should-know/",
+      "permanent": true
+    },
+    {
+      "source": "/data-pipeline-components-architectural-blueprint",
+      "destination": "/writing/data-pipeline-components-architectural-blueprint/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {

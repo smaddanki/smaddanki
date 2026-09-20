@@ -10,14 +10,14 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 - Keep JavaScript to what Doks ships plus the citation copy button. Do not add more.
 - Content is markdown in `src/content/`. Front matter is the only metadata source.
 - Slugs never change after publication. Any change requires a redirect entry.
-- Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on pillar pages.
+- Do not add: comments, tag clouds, related-post algorithms, share buttons, view counters, cover images, pagination on category pages.
 - Site search comes with Doks and is kept. The home page is an archive for now; there is no About page.
 
 ## URL structure
 
 ```
 /                               home
-/writing/                       index of the five pillars
+/writing/                       index of the categories
 /writing/<slug>/                every article, all three types
 /labs/                          index of type: lab (links to canonical /writing/ URLs)
 /library/                       library index
@@ -25,14 +25,11 @@ For Claude Code. Build a Hugo static site, deployed to Vercel.
 /definitions/                   three owned terms, each with a stable anchor
 /what-you-show-the-auditor/     aggregate of every auditor block
 /corrections/                   corrections log
-/agent-data-layer/              pillar
-/silent-failure-problem/        pillar
-/agent-risk-and-controls/       pillar
-/real-tco-of-agents/            pillar
-/changing-data-function/        pillar
+/categories/                    category index
+/categories/<slug>/             one page per category
 ```
 
-Pillar pages sit at the root. Implement as a `pillar` taxonomy with a `url:` override in each term's `_index.md`. Articles live under `/writing/` regardless of type; `/labs/` is an index only, never a second canonical URL.
+Categories live under `/categories/`. Implement as a `category` taxonomy; the term pages under `src/content/categories/` are the single source of valid slugs, and validation reads that directory. Articles live under `/writing/` regardless of type; `/labs/` is an index only, never a second canonical URL.
 
 ## Front matter schema
 
@@ -45,7 +42,7 @@ definition:     # ONE sentence, no preamble. Rendered directly under the h1.
 date:
 lastReviewed:   # separate from date
 type:           # perspective | blueprint | lab
-pillar:         # one of the five slugs, exactly one
+category:       # exactly one, must have a page under src/content/categories/
 tags: []        # zero or more, from the controlled list below
 summary:        # for cards and meta description
 draft:
@@ -71,13 +68,13 @@ library:
   repo:
 ```
 
-Fail the build if `h1`, `definition`, `type` or `pillar` is missing on an article. A missing definition sentence is the single most costly omission on this site.
+Fail the build if `h1`, `definition`, `type` or `category` is missing on an article. A missing definition sentence is the single most costly omission on this site.
 
 ## Tags
 
 Tags are a controlled vocabulary, not free text. Hold the list in `src/data/tags.yaml` with a display name and one-line description per tag. **Fail the build on any tag not in that file** — typos and near-duplicates (`mcp` / `MCP` / `mcp-servers`) are the failure mode this prevents.
 
-Tags are orthogonal to pillars by design. No tag may map one-to-one onto a pillar. They exist to detect an emerging sixth section: when a tag reaches roughly fifteen articles with a distinct reader, it becomes a candidate for promotion.
+Tags are orthogonal to categories by design. No tag may map one-to-one onto a category. They exist to detect an emerging sixth section: when a tag reaches roughly fifteen articles with a distinct reader, it becomes a candidate for promotion.
 
 Starting list:
 
@@ -91,16 +88,16 @@ audit-evidence        cost-attribution      financial-services
 Rendering rules:
 
 - A tag page renders only once the tag holds **three or more** published articles. Below that the tag is recorded in front matter but produces no page, and the tag is shown as plain text rather than a link. This avoids near-empty index pages.
-- Tag pages are reverse-chronological. They are utility pages, unlike pillar pages.
-- Tags appear at the foot of articles and on pillar pages. **Never in the navigation.**
-- Tag pages carry `noindex`. Pillar pages are the citation targets; tag pages would compete with them for the same content.
+- Tag pages are reverse-chronological. They are utility pages, unlike category pages.
+- Tags appear at the foot of articles and on category pages. **Never in the navigation.**
+- Tag pages carry `noindex`. Category pages are the citation targets; tag pages would compete with them for the same content.
 - Expose a build-time report of tag counts (`hugo` output or a small script) so the promotion threshold can be checked without counting by hand.
 
 ## Layouts
 
 - `single` variants per `type`, selected by Hugo's type lookup (`src/layouts/perspective/`, `src/layouts/blueprint/`, `src/layouts/lab/`), all rendering one shared `_partials/article.html`: perspective (single column, no TOC), blueprint (Doks' sticky desktop TOC and collapsible mobile TOC, numbered H2s), lab (methodology block above the fold, results before method).
-- Pillar term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
-- `/writing/` index: the five pillars, each with its question and definition. Not a feed.
+- Category term pages: definition at top, then articles grouped under sub-headings defined in the term's `_index.md` front matter. Explicitly not reverse-chronological and not paginated.
+- `/writing/` index: the categories, each with its definition. Not a feed.
 - `/labs/`: a simple index.
 - `/library/`: a directory. Kind filters across the top, then a card grid grouped by kind. Kinds, their order, icon and colour live in `src/data/library.yaml`, which also drives validation. Cards use Doks' `.card` and `.card-icon`, so only the filters and grid are ours.
 - Home: an archive of every article, reverse-chronological, plus subscribe. The positioning-statement home page arrives with the visual design.
@@ -126,7 +123,7 @@ Build these before writing any content, even as unstyled placeholders:
 - JSON-LD via `@thulite/seo`, extended in `src/layouts/_partials/head/custom-head.html` where it falls short: Article (headline, author, datePublished, dateModified), Person, Organization, with `sameAs` to the LinkedIn profile. One name, one bio across everything.
 - `robots.txt` explicitly allowing GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, Bingbot.
 - `sitemap.xml`, and RSS as **full text**, not summaries, at `/feed.xml`.
-- `llms.txt` listing pillar and definition pages.
+- `llms.txt` listing category and definition pages.
 - `dateModified` emitted from `lastReviewed`, not from file mtime.
 - Preview deploys must emit `noindex`. Gate on Vercel's environment variable.
 - The `*.vercel.app` production alias 301s to smaddanki.com.
@@ -149,7 +146,7 @@ Build these before writing any content, even as unstyled placeholders:
 
 Primary: Writing · Labs · Library, plus Subscribe as a visually distinct control.
 
-Footer: all five pillars by name, Definitions, the auditor index, Corrections, RSS, privacy notice, and "Smaddanki LTD" as the legal entity.
+Footer: Categories, Definitions, the auditor index, Corrections, RSS, privacy notice, and "Smaddanki LTD" as the legal entity.
 
 ## Build order
 

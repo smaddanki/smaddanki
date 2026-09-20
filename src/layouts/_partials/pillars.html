@@ -1,3 +1,0 @@
-{{/* All five pillar term pages, including any with no articles yet.
-     site.Taxonomies.pillar omits empty terms, so read the content branch. */}}
-{{ return (where (site.GetPage "/pillar").Pages "Kind" "term") }}

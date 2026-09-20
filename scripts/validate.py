@@ -26,24 +26,27 @@ TAGS_DIR = CONTENT / "tags"
 
 THRESHOLD = 3
 TYPES = {"perspective", "blueprint", "lab"}
-PILLARS = {
-    "agent-data-layer",
-    "silent-failure-problem",
-    "agent-risk-and-controls",
-    "real-tco-of-agents",
-    "changing-data-function",
-}
-REQUIRED = ("h1", "definition", "type", "pillar", "title", "date", "summary")
+CATEGORIES_DIR = SRC / "content" / "categories"
+REQUIRED = ("h1", "definition", "type", "category", "title", "date", "summary")
 LIBRARY_FILE = SRC / "data" / "library.yaml"
 
 FM = re.compile(r"\A---\n(.*?)\n---\s*\n", re.S)
+
+
+class BadFrontMatter(Exception):
+    """Front matter that is not parseable YAML."""
 
 
 def front_matter(path):
     m = FM.match(path.read_text(encoding="utf-8"))
     if not m:
         return None
-    return yaml.safe_load(m.group(1)) or {}
+    try:
+        return yaml.safe_load(m.group(1)) or {}
+    except yaml.YAMLError as exc:
+        # A value holding a colon is the usual cause; report it rather than
+        # dumping a traceback on whoever is writing the post.
+        raise BadFrontMatter(str(exc).replace("\n", " ")) from None
 
 
 def check_article(path, fm, vocab, errors):
@@ -60,11 +63,15 @@ def check_article(path, fm, vocab, errors):
     if kind and kind not in TYPES:
         errors.append(f"{where}: type `{kind}` is not one of {sorted(TYPES)}")
 
-    pillar = fm.get("pillar")
-    if isinstance(pillar, list):
-        errors.append(f"{where}: `pillar` takes exactly one slug, not a list")
-    elif pillar and pillar not in PILLARS:
-        errors.append(f"{where}: pillar `{pillar}` is not one of {sorted(PILLARS)}")
+    cats = categories()
+    category = fm.get("category")
+    if isinstance(category, list):
+        errors.append(f"{where}: `category` takes exactly one slug, not a list")
+    elif category and category not in cats:
+        errors.append(
+            f"{where}: category `{category}` has no page under "
+            f"src/content/categories/ — known: {sorted(cats)}"
+        )
 
     if not fm.get("lastReviewed"):
         errors.append(f"{where}: missing `lastReviewed` (dateModified is emitted from it)")
@@ -81,6 +88,14 @@ def check_article(path, fm, vocab, errors):
         for field in ("runDate", "models", "schemaVersion", "harness"):
             if not lab.get(field):
                 errors.append(f"{where}: lab piece missing `lab.{field}`")
+
+
+def categories():
+    """Category slugs, taken from the term pages themselves so there is one source."""
+    if not CATEGORIES_DIR.exists():
+        return set()
+    return {d.name for d in CATEGORIES_DIR.iterdir()
+            if d.is_dir() and (d / "_index.md").exists()}
 
 
 def library_kinds():
@@ -143,7 +158,11 @@ def main():
     for path in sorted(CONTENT.glob("writing/**/*.md")):
         if path.name == "_index.md":
             continue
-        fm = front_matter(path)
+        try:
+            fm = front_matter(path)
+        except BadFrontMatter as exc:
+            errors.append(f"{path.relative_to(ROOT)}: front matter is not valid YAML — {exc}")
+            continue
         if fm is None:
             errors.append(f"{path.relative_to(ROOT)}: no YAML front matter")
             continue
@@ -155,7 +174,11 @@ def main():
     for path in sorted(CONTENT.glob("library/**/*.md")):
         if path.name == "_index.md":
             continue
-        fm = front_matter(path)
+        try:
+            fm = front_matter(path)
+        except BadFrontMatter as exc:
+            errors.append(f"{path.relative_to(ROOT)}: front matter is not valid YAML — {exc}")
+            continue
         if fm is None or fm.get("draft"):
             continue
         check_library(path, fm, errors)

@@ -5,7 +5,7 @@ definition: An agent consumes definitions rather than results, so the contract i
 date: 2026-09-01
 lastReviewed: 2026-09-18
 type: perspective
-pillar: agent-data-layer
+category: agent-data-layer
 group: foundations
 tags:
   - semantic-layer
