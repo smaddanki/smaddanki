@@ -333,3 +333,44 @@ figure figcaption {
   .filter-dropdown { position: static; }
   .filter-menu { left: 0; right: 0; }
 }
+
+// Doks drops the navbar's bottom border on the home page, because its home is a
+// hero. Ours is an article list, so put the separator back — in both modes,
+// since _dark.scss suppresses it again there.
+.home .navbar {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+@include color-mode(dark) {
+  body.home .navbar {
+    border-bottom: 1px solid var(--bs-border-color);
+  }
+}
+
+// Doks styles every <details> as a bordered callout, and every <summary> wider
+// than its own box (width: calc(100% + 2rem) with negative margins). Both leak
+// into the filter dropdowns, drawing a second frame around each pill. Reset
+// them here rather than fighting the specificity at each rule.
+.filter-dropdown {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+
+  > summary {
+    width: auto;
+    margin: 0;
+
+    &:hover {
+      background: var(--bs-tertiary-bg);
+    }
+  }
+}
+
+// In dark mode Doks re-declares `details summary::after` with its own SVG
+// chevron as `content`. That selector outranks `.filter-dropdown > summary`,
+// so both arrows drew at once. Scoping through .filters raises specificity
+// above it in both modes.
+.filters .filter-dropdown > summary::after {
+  content: "";
+}
