@@ -1,0 +1,15 @@
+{{- /* Overrides @thulite/seo's title partial. Theirs always appends the site
+       title, so the home page read "Smaddanki | Smaddanki". Articles also read
+       better with the search-bearing h1 than the conversational title. */ -}}
+{{- $sep := site.Params.seo.title.separator | default "—" -}}
+{{- $suffix := site.Params.seo.title.suffix | default site.Title -}}
+{{- $title := "" -}}
+{{- if .Params.seo.title -}}
+  {{- $title = .Params.seo.title -}}
+{{- else if .IsHome -}}
+  {{- $title = site.Title -}}
+{{- else -}}
+  {{- $base := .Params.h1 | default .Title -}}
+  {{- $title = printf "%s %s %s" $base $sep $suffix -}}
+{{- end -}}
+<title>{{ $title }}</title>
