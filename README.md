@@ -1,7 +1,7 @@
 # smaddanki.com
 
 A Hugo site built on [Doks](https://doks.thulite.io/), deployed to Vercel.
-Built from the spec in [smaddanki-build-spec.md](smaddanki-build-spec.md).
+Built from the spec in [docs/build-spec.md](docs/build-spec.md).
 
 Doks is a real upstream dependency, installed from npm and mounted through Hugo
 modules (`config/_default/module.toml`). Nothing is vendored. **Never edit
@@ -16,7 +16,7 @@ Requires Node 24 (Doks' `engines` floor) and Hugo 0.166.
 nvm use                      # reads .nvmrc
 brew install hugo
 npm install
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r scripts/requirements.txt
 
 python3 scripts/validate.py && hugo server
 ```
@@ -33,6 +33,7 @@ data/library.yaml     artefact kinds, their order, icon and colour
 layouts/              our overrides of Doks
 scripts/validate.py   front matter and tag validation, run before every build
 scripts/build.sh      the Vercel build
+docs/build-spec.md    the spec this site is built from
 ```
 
 ## Writing

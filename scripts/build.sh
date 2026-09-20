@@ -4,8 +4,8 @@
 # preview stay inside that preview instead of pointing at the live domain.
 set -e
 
-pip3 install --quiet --disable-pip-version-check --break-system-packages -r requirements.txt \
-  || pip3 install --quiet --disable-pip-version-check -r requirements.txt
+pip3 install --quiet --disable-pip-version-check --break-system-packages -r scripts/requirements.txt \
+  || pip3 install --quiet --disable-pip-version-check -r scripts/requirements.txt
 
 python3 scripts/validate.py
 
