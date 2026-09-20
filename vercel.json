@@ -25,6 +25,66 @@
       "permanent": true
     },
     {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/writing/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering",
+      "destination": "/writing/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering/data-engineering",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/engineering/software-architecture-design",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/content-type/architecture-and-design",
+      "destination": "/categories/data-pipelines/",
+      "permanent": true
+    },
+    {
+      "source": "/cookies-policy",
+      "destination": "/privacy/",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed",
+      "destination": "/feed.xml",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap_index.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/post-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
+      "source": "/page-sitemap.xml",
+      "destination": "/sitemap.xml",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [
         {
